@@ -1,5 +1,5 @@
 <template>
-    <div id="projects" class="flex flex-col gap-9 pt-[73px] transition-all duration-300">
+    <div id="projects" class="projects intersect">
         <BaseProject
         v-for="(project, index) in projects"
         :key="index"
@@ -11,3 +11,9 @@
 <script setup>
 const projects = ref([{}, {}, {}, {}, {}, {}, {}, {}])
 </script>
+
+<style scoped>
+.projects {
+    @apply flex flex-col gap-9 pt-[73px] transition-all duration-300
+}
+</style>

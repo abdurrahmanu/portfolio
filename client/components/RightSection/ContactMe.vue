@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-[73px]" id="contact">
+    <div id="contact" class="pt-[73px] intersect">
         <form @submit.prevent="" action="" class="grid gap-6">
             <ReusableInput 
             v-for="(input, key, index) in inputs"
@@ -14,7 +14,7 @@
                 <textarea class="text-input" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
             </div>
             <div class="text-center pt-6">
-                <button class="form-button border-t border-white border-opacity-[0.1]">SUBMIT</button>
+                <button class="form-button">SUBMIT</button>
             </div>
         </form>
     </div>
@@ -39,9 +39,8 @@ const inputs = ref({
 </script>
 
 <style scoped>
-
     .form-button {
-        @apply w-full shadow-md active:bg-slate-200 active:text-black text-center py-6 bg-neutral-800 rounded-md
+        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-slate-200 active:text-black text-center py-6 bg-neutral-800 rounded-md
     }
     
     .text-input {

@@ -1,7 +1,7 @@
-import AboutMe from '../components/RightSide/AboutMe.vue';
-import AllSkillset from '../components/RightSide/AllSkillset.vue';
-import ProjectsList from '../components/RightSide/ProjectsList.vue';
-import ContactMe from '../components/RightSide/ContactMe.vue'
+import AboutMe from '../components/RightSection/AboutMe.vue';
+import AllSkillset from '../components/RightSection/AllSkillset.vue';
+import ProjectsList from '../components/RightSection/ProjectsList.vue';
+import ContactMe from '../components/RightSection/ContactMe.vue'
 import DownloadSvg from '../components/svgComponents/DownloadSvg.vue';
 import LinkedinSvg from '../components/svgComponents/LinkedinSvg.vue'
 import GithubSvg from '../components/svgComponents/GithubSvg.vue';
@@ -36,34 +36,34 @@ export function allData() {
         }
     ]
 
-    const dynamicComponentData = {
+    const fixedSectionData = {
         'About Me': {
             component: AboutMe,
-            name: 'AboutMe',
+            name: 'about',
             header: ["Hello, I'm", 'Jimoh Adekunle'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         },
         'Skillset': {
             component: AllSkillset,
-            name: 'AllSkillset',
+            name: 'skills',
             header: ['My', 'Toolset'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         },
         'Projects': {
             component: ProjectsList,
-            name: 'ProjectsList',
+            name: 'projects',
             header: ['See', 'Recent Projects'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         },
         'Contact Me': {
             component: ContactMe,
-            name: "ContactMe",
+            name: "contact",
             header: ['Send A', 'Message Today'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         }
     }
 
     return {
-        dynamicComponentData, svgs, skillSet
+        fixedSectionData, svgs, skillSet
     }
 }
