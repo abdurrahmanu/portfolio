@@ -1,6 +1,6 @@
 import AboutMe from '../components/RightSection/AboutMe.vue';
-import AllSkillset from '../components/RightSection/AllSkillset.vue';
-import ProjectsList from '../components/RightSection/ProjectsList.vue';
+import MySkillset from '../components/RightSection/MySkillset.vue';
+import MyProjects from '../components/RightSection/MyProjects.vue';
 import ContactMe from '../components/RightSection/ContactMe.vue'
 import DownloadSvg from '../components/svgComponents/DownloadSvg.vue';
 import LinkedinSvg from '../components/svgComponents/LinkedinSvg.vue'
@@ -12,6 +12,21 @@ import NodeJsSvg from '../components/svgComponents/NodeJsSvg.vue';
 
 export function allData() {
     const svgs = [GithubSvg, LinkedinSvg, DownloadSvg]
+
+    const socialContact = [
+        {
+            name: 'Github',
+            link: 'www.google.com'
+        },
+        {
+            name: 'Linkedin',
+            link: 'www.google.com'
+        },
+        {
+            name: 'Download resume',
+            link: 'www.google.com'
+        }
+    ]
 
     const skillSet = [
         {
@@ -44,13 +59,13 @@ export function allData() {
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         },
         'Skillset': {
-            component: AllSkillset,
+            component: MySkillset,
             name: 'skills',
             header: ['My', 'Toolset'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
         },
         'Projects': {
-            component: ProjectsList,
+            component: MyProjects,
             name: 'projects',
             header: ['See', 'Recent Projects'],
             info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten makropp utan posam neluvis i hbt postpatologi. Nösk rynar vis. Nyrad ör. Gunde debåning att mikarad debus sepp tenengen. Lament gure samt krora'
@@ -63,7 +78,19 @@ export function allData() {
         }
     }
 
+    const projects = ref([{
+        title: 'PROJECT TITLE',
+        info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten',
+        type: 'web and mobile development',
+        link: 'www.google.com',
+        language: 'web'
+    }])
+
     return {
-        fixedSectionData, svgs, skillSet
+        socialContact,
+        projects,
+        fixedSectionData,
+        svgs,
+        skillSet,
     }
 }

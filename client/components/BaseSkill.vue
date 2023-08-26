@@ -1,15 +1,11 @@
 <template>
-    <div
-    v-motion
-    :initial="{ opacity: 0, X: 500}"
-    :enter="{ opacity: 1, x: 0, scale: 1 }"
-    :delay="300 * index"
-    class="skill">
+    <div class="skill">
         <div class="flex justify-between items-center pb-6">
-            <div class="">
-                <component :is="svgComponent.component" />
+            <component :is="svgComponent.component" />
+            <div @click="filterProjects" class="link">
+                <span>view project</span>
+                <SvgComponentsArrowSvg/>
             </div>
-            <div class="link">view project <SvgComponentsArrowSvg/> </div>
         </div>
         <div class="text-white font-medium pb-[10px]">{{ skillName }}</div>
         <div class="info">{{ skillInfo }}</div>
@@ -17,7 +13,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
     svgComponent: Object,
     skillName: String,
@@ -25,11 +20,15 @@ const props = defineProps({
     index: Number,
 });
 
+const filterProjects = () => {
+    console.log(props.skillName)
+}
+
 </script>
 
 <style scoped>
 .skill {
-    @apply pt-4 px-4 text-[10px] custom-screen-lg:text-[16px] border border-[rgba(255,255,255,0.10)] pb-[14px] rounded-[10px] shadow-lg flex flex-col
+    @apply pt-3 pl-3 pr-5 text-[10px] custom-screen-lg:text-[16px] border border-[rgba(255,255,255,0.10)] pb-3 rounded-[10px] shadow-lg flex flex-col custom-screen-lg:pt-4 custom-screen-lg:pl-4 custom-screen-lg:pr-[24.89px] custom-screen-lg:pb-[14px]
 }
 
 .link {

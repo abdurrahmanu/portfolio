@@ -1,28 +1,21 @@
 <template>
-    <div 
-    v-motion
-    :initial="{ opacity: 0, X: 500}"
-    :enter="{ opacity: 1, x: 0, scale: 1 }"
-    :delay="300 * index"
-    class="project">
-
-        <div class="h-[62.7%] bg-black rounded-t-[17px]">
-            <img class="w-full max-h-[367px] relative" src="../public/projectBackground.png" alt="">
+    <div class="project">
+        <div class="img-container">
+            <img class="img" src="../public/projectBackground.png" alt="">
         </div>
-
-        <div class="h-full px-[17.5px] relative flex flex-col">
-                <div class="heading">PROJECT TITLE</div>
-
-                <div class="info">Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten</div>
-
-                <div class="flex justify-between pt-[2.74%]">
-                    <div class="btn">
-                        <div>web and mobile development</div>
-                    </div>
-                    <div class="link">view project <SvgComponentsArrowSvg/> </div>
+        <div class="about-project">
+            <div class="heading">{{ project.title }}</div>
+            <div class="info">{{ project.info }}</div>
+            <div class="flex justify-between pt-[2.74%]">
+                <div class="btn">
+                    <div>{{project.type }}</div>
                 </div>
+                <div @click="viewProjectLive" class="link">
+                    <span>view project</span>
+                    <SvgComponentsArrowSvg/> 
+                </div>
+            </div>
         </div>
-
     </div>
 </template>
 
@@ -31,6 +24,10 @@ const props = defineProps({
     index: Number,
     project: Object,
 })
+
+const viewProjectLive = () => {
+    console.log(props.index)
+}
 
 </script>
 
@@ -41,6 +38,18 @@ const props = defineProps({
 
     .link {
         @apply opacity-[0.6] flex gap-[17px] text-[10px] custom-screen-lg:text-[16px] items-center font-normal
+    }
+
+    .about-project {
+        @apply h-full px-[17.5px] relative flex flex-col
+    }
+
+    .img-container {
+        @apply h-[62.7%] bg-black rounded-t-[17px] 
+    }
+
+    .img {
+        @apply w-full max-h-[367px] relative
     }
 
     .project {

@@ -1,15 +1,16 @@
 <template>
     <div id="projects" class="projects intersect">
         <BaseProject
-        v-for="(project, index) in projects"
+        v-for="index in 5"
         :key="index"
-        :project="project"
-        />
+        :index="index"
+        :project="projects[0]" />
     </div>
 </template>
 
 <script setup>
-const projects = ref([{}, {}, {}, {}, {}, {}, {}, {}])
+const { projects } = allData()
+
 </script>
 
 <style scoped>

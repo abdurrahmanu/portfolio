@@ -14,6 +14,6 @@ const props = defineProps({
 
 <style scoped>
 .info {
-    @apply leading-[20.484px] max-w-[525px] font-medium text-[#7d7d7d] pt-[21px]
+    @apply leading-[20.484px] max-w-[525px] font-medium text-[#7d7d7d] pt-[21px] text-[10px] custom-screen-md:text-[13px] custom-screen-lg:text-[16px]
 }
 </style>
