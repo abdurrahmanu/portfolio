@@ -4,7 +4,8 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx,html}",
+    "./spa-loading-template.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -20,6 +21,7 @@ module.exports = {
         'custom-3xl': '76px',
       },
       screens: {
+        'custom-screen-xs': {'min': '600px'},
         'custom-screen-sm': { 'min': '800px' },
         'custom-screen-md': { 'min': '900px' },
         'custom-screen-lg': { 'min': '1055px' },

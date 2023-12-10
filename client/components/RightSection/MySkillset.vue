@@ -1,6 +1,6 @@
 <template>
     <div id="skills" class="skills intersect">
-        <BaseSkill 
+        <BaseComponentsSkill 
         v-for="(skill, index) in skillSet"
         :index="index"
         :key="index"
@@ -17,6 +17,6 @@ const { skillSet } = allData()
 
 <style scoped>
 .skills {
-    @apply flex flex-col gap-[27px] pt-[73px]
+    @apply flex flex-col gap-[27px] sm:pt-[73px] pt-10
 }
 </style>

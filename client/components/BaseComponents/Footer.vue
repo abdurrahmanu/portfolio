@@ -1,7 +1,7 @@
 <template>
     <div class="footer-container">
-        <div class="pt-[115px]">
-            <div class="footer ">
+        <div class="sm:pt-[115px] pt-[60px]">
+            <div class="footer">
                 <div class="flex flex-col gap-6">
                     <div class="leading-[26.91px]"> 
                         Designed by <span>{{ Fullname }}</span>
@@ -27,7 +27,7 @@ const phoneNumber = ref(' +234453453445')
 
 <style scoped>
     .footer {
-        @apply border-t border-white flex m-auto justify-between items-center border-opacity-[0.1] pt-[33px] font-normal relative text-[rgba(255,255,255,0.70)] custom-screen-3xl:text-base gap-2 custom-screen-2xl:text-[14px] custom-screen-xl:text-[12px] custom-screen-lg:text-[10px] text-[9px] w-full
+        @apply border-t-[2px] border-white flex m-auto justify-between items-center border-opacity-[0.1] pt-[33px] font-normal relative text-[rgba(255,255,255,0.70)] custom-screen-3xl:text-base gap-2 custom-screen-2xl:text-[14px] custom-screen-xl:text-[12px] custom-screen-lg:text-[10px] text-[9px] w-full
     }
 
     .footer-container {

@@ -1,6 +1,6 @@
 <template>
     <div id="projects" class="projects intersect">
-        <BaseProject
+        <BaseComponentsProject
         v-for="index in 5"
         :key="index"
         :index="index"
@@ -15,6 +15,6 @@ const { projects } = allData()
 
 <style scoped>
 .projects {
-    @apply flex flex-col gap-9 pt-[73px] transition-all duration-300
+    @apply flex flex-col gap-9 sm:pt-[73px] pt-10 transition-all duration-300
 }
 </style>

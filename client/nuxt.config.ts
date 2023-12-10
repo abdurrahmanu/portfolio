@@ -2,5 +2,6 @@
 export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/motion/nuxt']
+  modules: ['@nuxtjs/tailwindcss', '@vueuse/motion/nuxt'],
+  spaLoadingTemplate: './loader.html',
 })

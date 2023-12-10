@@ -1,6 +1,6 @@
 <template>
-    <div id="about" class="pt-[73px] intersect">
-        <img class="my-image" src="../../public/image.png" alt="">
+    <div id="about" class="sm:pt-[73px] pt-10 intersect">
+        <img loading="lazy" class="my-image" src="../../public/image.png" alt="">
     </div>
 </template>
 
