@@ -1,6 +1,6 @@
 <template>
     <div 
-    @click="$emit('emitCurrentNavigation', currentNavigation)"
+    @click="$emit('emitClickedNavigation', clickedNavigation)"
     :class="[activeNavigation ? 'text-white' : 'text-[#7d7d7d]']"
     class="navigation">
         <span class="inline-block">{{ navigationIndex }}</span>
@@ -14,14 +14,14 @@
 <script setup>
 const { fixedSectionData } = allData()
 
-const emit = defineEmits(['emitCurrentNavigation'])
+const emit = defineEmits(['emitClickedNavigation'])
 const props = defineProps({
     navigationName: String,
     navigationIndex: Number,
     activeNavigation: Boolean
 })
 
-const currentNavigation = ref(fixedSectionData[props.navigationName].name)
+const clickedNavigation = ref(fixedSectionData[props.navigationName].name)
 </script>
 
 <style scoped>

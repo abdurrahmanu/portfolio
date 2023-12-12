@@ -11,7 +11,7 @@
                     <div>{{project.type }}</div>
                 </div>
                 <div @click="viewProjectLive" class="link">
-                    <span>view project</span>
+                    <span>view <span class="md:inline hidden">project</span> </span>
                     <SvgComponentsArrowSvg/> 
                 </div>
             </div>
@@ -33,11 +33,11 @@ const viewProjectLive = () => {
 
 <style scoped>
     .heading {
-        @apply text-[18px] font-bold custom-screen-xl:text-[32px] custom-screen-md:text-[24px]
+        @apply text-[14px] font-bold custom-screen-xl:text-[32px] custom-screen-md:text-[24px] 
     }
 
     .link {
-        @apply opacity-[0.6] flex gap-[17px] text-[10px] custom-screen-lg:text-[16px] items-center font-normal
+        @apply opacity-[0.6] flex gap-[7px] sm:gap-[17px] text-[10px] custom-screen-lg:text-[16px] items-center font-normal
     }
 
     .about-project {

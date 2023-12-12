@@ -1,25 +1,35 @@
 <template>
-    <div id="contact" class="pt-[73px] intersect">
-        <form @submit.prevent class="grid gap-6">
-            <ReusableInputComponent
-            v-for="(input, key, index) in inputs"
-            @modelValue="input.value = $event"
-            :key="index"
-            :id="input.id"
-            :label="input.label"
-            :placeholder="input.placeholder" />
-            <div class="grid gap-1">
-                <label for="message" class="text-[rgba(255,255,255,0.3)]">Enter message</label>
-                <textarea v-model="message" class="text-input" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
-            </div>
-            <div class="text-center pt-6">
-                <button @click.prevent="handleSubmit" class="form-button">SUBMIT</button>
-            </div>
-        </form>
+    <div>
+        <SectionInfo
+        :sectionName="contactInfo.name"
+        :fixedHeading="contactInfo.header"
+        :fixedInformation="contactInfo.info"
+        />
+        <div id="contact" class="sm:pt-[73px] pt-10 intersect">
+            <form @submit.prevent class="grid gap-6">
+                <BaseComponentsReusableInput
+                v-for="(input, key, index) in inputs"
+                @modelValue="input.value = $event"
+                :key="index"
+                :id="input.id"
+                :label="input.label"
+                :placeholder="input.placeholder" />
+                <div class="grid gap-1">
+                    <label for="message" class="text-[rgba(255,255,255,0.3)] text-[12px] custom-screen-md:text-[16px] custom-screen-2xl:text-base">Enter message</label>
+                    <textarea v-model="message" class="text-input" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
+                </div>
+                <div class="text-center pt-6">
+                    <button @click.prevent="handleSubmit" class="form-button">SUBMIT</button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
 <script setup>
+const { fixedSectionData } = allData()
+const contactInfo = fixedSectionData['Contact Me']
+
 const inputs = ref([
     {
         label: 'Full name',
@@ -53,7 +63,6 @@ const handleSubmit = () => {
         }
     })
 }
-
 </script>
 
 <style scoped>

@@ -2,13 +2,14 @@ import AboutMe from '../components/RightSection/AboutMe.vue';
 import MySkillset from '../components/RightSection/MySkillset.vue';
 import MyProjects from '../components/RightSection/MyProjects.vue';
 import ContactMe from '../components/RightSection/ContactMe.vue'
-import DownloadSvg from '../components/svgComponents/DownloadSvg.vue';
-import LinkedinSvg from '../components/svgComponents/LinkedinSvg.vue'
-import GithubSvg from '../components/svgComponents/GithubSvg.vue';
-import JavaScriptSvg from '../components/svgComponents/JavaScriptSvg.vue';
-import PythonSvg from '../components/svgComponents/PythonSvg.vue';
-import ReactSvg from '../components/svgComponents/ReactSvg.vue';
-import NodeJsSvg from '../components/svgComponents/NodeJsSvg.vue';
+import DownloadSvg from '../components/SvgComponents/DownloadSvg.vue';
+import LinkedinSvg from '../components/SvgComponents/LinkedinSvg.vue'
+import GithubSvg from '../components/SvgComponents/GithubSvg.vue';
+import JavaScriptSvg from '../components/SvgComponents/JavaScriptSvg.vue';
+import PythonSvg from '../components/SvgComponents/PythonSvg.vue';
+import ReactSvg from '../components/SvgComponents/ReactSvg.vue';
+import NodeJsSvg from '../components/SvgComponents/NodeJsSvg.vue';
+import { ref } from 'vue';
 
 export function allData() {
     const svgs = [GithubSvg, LinkedinSvg, DownloadSvg]
@@ -94,3 +95,5 @@ export function allData() {
         skillSet,
     }
 }
+
+
