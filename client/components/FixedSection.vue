@@ -130,8 +130,8 @@ function isInViewport(element) {
     .social-contact {
         @apply max-w-[391px]  font-normal text-[11px] grid items-center 
         custom-screen-sm:gap-[44px] custom-screen-md:text-[14px] gap-2 custom-screen-sm:flex
-        /* custom-screen-sm:max-w-fit */
     }
+    /* custom-screen-sm:max-w-fit */
 
     .typography-info, .typography-nav {
         @apply custom-screen-3xl:text-base gap-2 custom-screen-2xl:text-[14px] custom-screen-xl:text-[12px] custom-screen-lg:text-[10px] text-[9px] 
