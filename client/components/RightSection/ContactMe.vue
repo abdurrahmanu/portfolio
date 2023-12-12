@@ -67,7 +67,8 @@ const handleSubmit = () => {
 
 <style scoped>
     .form-button {
-        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-slate-200 active:text-black text-center bg-neutral-800 rounded-md py-2 text-[10px] custom-screen-md:py-4 custom-screen-md:text-[14px] custom-screen-2xl:py-6 custom-screen-2xl:text-base
+        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-slate-200 active:text-black text-center bg-neutral-800 rounded-md py-2 text-[10px] 
+        custom-screen-md:py-4 custom-screen-md:text-[14px] custom-screen-2xl:py-6 custom-screen-2xl:text-base
     }
     
     .text-input {
