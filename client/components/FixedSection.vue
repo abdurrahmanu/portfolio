@@ -9,17 +9,18 @@
             v-if="detectNavigationChange" 
             :fixedInformation="fixedInformation" />
 
-            <div class="nav">
-                <FixedSectionNavigation
-                v-for="(navigationName, navigationIndex) in navigation"
-                :key="navigationIndex"
-                :navigationName="navigationName"
-                :navigationIndex="navigationIndex"
-                :activeNavigation="currentNavigation === Object.values(fixedSectionData)[navigationIndex].name"
-                @emitClickedNavigation="clickedSection = $event"
-                />
+            <div class="py-[8.3%]">
+                <div ref="fixedNav" class="nav">
+                    <FixedSectionNavigation
+                    v-for="(navigationName, navigationIndex) in navigation"
+                    :key="navigationIndex"
+                    :navigationName="navigationName"
+                    :navigationIndex="navigationIndex"
+                    :activeNavigation="currentNavigation === Object.values(fixedSectionData)[navigationIndex].name"
+                    @emitClickedNavigation="clickedSection = $event" />
+                </div>
             </div>
-    
+
             <div class="social-contact">
                 <FixedSectionContactInfo
                 v-for="(social, index) in socialContact" 
@@ -35,8 +36,9 @@
 <script setup>
 const { fixedSectionData, svgs, socialContact } = allData()
 
+const fixedNav = ref(null)
 const props = defineProps({ scrolledInSection: String })
-const emit = defineEmits(['clickNavigation'])
+const emit = defineEmits(['clickNavigation', 'fixedNavInViewPort'])
 const navigation =  ['About Me', 'Skillset', 'Projects', 'Contact Me']
 const scrolledInSection = ref('')
 const clickedSection = ref('about')
@@ -81,6 +83,12 @@ onMounted(() => {
         changeFixedHeadingAndInformation()
         scrollElementToView(el)
     })
+
+    window.addEventListener('resize', event => {
+        if (!isInViewport(fixedNav.value)) {
+            emit('fixedNavInViewPort', false)
+        } else emit('fixedNavInViewPort', true)
+    })
 })
 
 const fixedHeading = computed(() => {
@@ -95,15 +103,28 @@ const fixedInformation = computed(() => {
     } else ''
 })
 
+function isInViewport(element) {
+    var rect = element.getBoundingClientRect();
+    var html = document.documentElement;
+
+    return rect.top >= html.clientHeight || rect.top >= window.innerHeight
+    // return (
+    //     rect.top >= 0 &&
+    //     rect.left >= 0 &&
+    //     rect.bottom <= (window.innerHeight || html.clientHeight) &&
+    //     rect.right <= (window.innerWidth || html.clientWidth)
+    // );
+}
+
 </script>
 
 <style scoped>
     .fixed-section {
-        @apply sticky top-0 left-0 w-[46.18%] flex flex-col gap-[3.3%] text-white sm:pt-[60px] pt-10 h-fit pb-[40px]
+        @apply sticky top-0 left-0 sm:w-[46.18%] hidden sm:flex flex-col gap-[3.3%] text-white h-fit pb-[40px]
     }
 
     .nav {
-        @apply py-[8.3%] transition-all duration-75 font-medium uppercase gap-4 flex flex-col justify-start
+        @apply transition-all duration-75 font-medium uppercase gap-4 flex flex-col justify-start
     }
 
     .social-contact {

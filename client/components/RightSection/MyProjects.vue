@@ -1,16 +1,23 @@
 <template>
-    <div id="projects" class="projects intersect">
-        <BaseComponentsProject
-        v-for="index in 5"
-        :key="index"
-        :index="index"
-        :project="projects[0]" />
+    <div>
+        <SectionInfo
+        :sectionName="projectsInfo.name"
+        :fixedHeading="projectsInfo.header"
+        :fixedInformation="projectsInfo.info"
+        />
+        <div id="projects" class="projects intersect">
+            <BaseComponentsProject
+            v-for="index in 5"
+            :key="index"
+            :index="index"
+            :project="projects[0]" />
+        </div>
     </div>
 </template>
 
 <script setup>
-const { projects } = allData()
-
+const { projects, fixedSectionData } = allData()
+const projectsInfo = fixedSectionData['Projects']
 </script>
 
 <style scoped>
