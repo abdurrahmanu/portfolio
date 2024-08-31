@@ -1,153 +1,77 @@
 <template>
-    <div class="fixed-section">
-        <FixedSectionHeading
-        v-if="detectNavigationChange" 
-        :fixedHeading="fixedHeading" />
-
-        <div class="flex flex-col gap-[10.6%]">
-            <FixedSectionInformation 
-            v-if="detectNavigationChange" 
-            :fixedInformation="fixedInformation" />
-
-            <div class="py-[8.3%]">
-                <div ref="fixedNav" class="nav">
-                    <FixedSectionNavigation
-                    v-for="(navigationName, navigationIndex) in navigation"
-                    :key="navigationIndex"
-                    :navigationName="navigationName"
-                    :navigationIndex="navigationIndex"
-                    :activeNavigation="currentNavigation === Object.values(fixedSectionData)[navigationIndex].name"
-                    @emitClickedNavigation="clickedSection = $event" />
-                </div>
+    <div :class="[scrollStyle]" class="fixed space-y-4 max-[640px]:space-y-2 font-sans text-neutral-400">
+        <h1 class="text-2xl font-bold md:text-3xl lg:text-4xl max-[640px]:text-center redit">
+            <p>Hello, I'm</p>
+            <p>Ahmed Abdulrahman</p>
+        </h1>
+        
+        <p :class="[borderBg]" class="relative pl-2 text-sm leading-7 pacifico">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
+        
+        <div class="relative flex flex-row items-center justify-between gap-10 m-auto caveat">                
+            <div v-for="(social, index) in socialContact" @click="goTo(social.link)" class="flex items-center gap-[8px] justify-between">
+                <img class="w-3" :src="'linkedin.svg' || svgs[index] + '.svg'" alt="">
             </div>
+        </div>
 
-            <div class="social-contact">
-                <FixedSectionContactInfo
-                v-for="(social, index) in socialContact" 
-                :key="index"
-                :svg="[svgs[index]]"
-                :link="social.link"
-                :name="social.name" />
+        <div class="border-b border-b-neutral-800">
+            <div class="h-[2px] bg-white">
+                <div ref="scroll" :class="[scrolledInSection === 'about' ? 'bg-green-700 after:shadow-green-500' : scrolledInSection === 'skills' ? 'bg-yellow-700 after:shadow-yellow-500' : scrolledInSection === 'projects' ? 'bg-red-700 after:shadow-red-500' : 'bg-sky-900 after:shadow-sky-900']" class="h-[2px] after:absolute after:p-[1px] after:shadow-lg after:right-0 relative"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-const { fixedSectionData, svgs, socialContact } = allData()
+const svgs = ['github', 'linkedin', 'download']
+const scroll = ref(null)
+const scrollbar = useScrollBar()
+const scrollStyle = ref(0)
+const {scrollPercent} = storeToRefs(scrollbar)
 
-const fixedNav = ref(null)
-const props = defineProps({ scrolledInSection: String })
-const emit = defineEmits(['clickNavigation', 'fixedNavInViewPort'])
-const navigation =  ['About Me', 'Skillset', 'Projects', 'Contact Me']
-const scrolledInSection = ref('')
-const clickedSection = ref('about')
-const currentNavigation = ref('about')
-const detectNavigationChange = ref(true)
-
-const changeFixedHeadingAndInformation = () => {
-    detectNavigationChange.value = false;
-    setInterval(() => {
-        detectNavigationChange.value = true;
-    }, 0);
-}
-
-const scrollElementToView = (el) => {
-    emit('clickNavigation', true)
-    el.scrollIntoView()
-    const scrollTimeout = ref(null)
-
-    window.addEventListener('scroll', e => {
-        clearTimeout(scrollTimeout.value);
-        scrollTimeout.value = setTimeout( () => {
-            emit('clickNavigation', false)
-        }, 100);
-    });
-}
+const main = mainStore()
+const {scrolledInSection} = storeToRefs(main)
 
 onMounted(() => {
     watchEffect(() => {
-        scrolledInSection.value = props.scrolledInSection;
-    })
-
-    //SCROLL IN ANOTHER SECTION
-    watch(scrolledInSection, (newValue, oldValue) => {
-        currentNavigation.value = newValue
-        changeFixedHeadingAndInformation()
-    })
-    
-    //NAVIGATION CLICK FOR ANOTHER SECTION
-    watch(clickedSection, (newValue, oldValue) => {
-        let el = document.getElementById(newValue)
-        currentNavigation.value = newValue
-        changeFixedHeadingAndInformation()
-        scrollElementToView(el)
-    })
-
-    window.addEventListener('resize', event => {
-        if (!isInViewport(fixedNav.value)) {
-            emit('fixedNavInViewPort', false)
-        } else emit('fixedNavInViewPort', true)
+        scroll.value.style.width = `${scrollPercent.value}%`
     })
 })
 
-const fixedHeading = computed(() => {
-    if (Object.values(fixedSectionData).filter(nav => nav.name === currentNavigation.value).length) {
-        return Object.values(fixedSectionData).filter(nav => nav.name === currentNavigation.value)[0].header
-    } else []
+const socialContact = [
+        {
+            name: 'Github',
+            link: 'www.google.com'
+        },
+        {
+            name: 'Linkedin',
+            link: 'www.google.com'
+        },
+        {
+            name: 'Download resume',
+            link: 'www.google.com'
+        }
+    ]
+
+
+const borderBg = computed(() => {
+    return  scrolledInSection.value === 'about' ?
+                'border-l-green-900 border-l-[5px]' :
+            scrolledInSection.value === 'skills' ?
+                'border-l-yellow-900 border-l-[5px]' :
+            scrolledInSection.value === 'projects'?
+                'border-l-red-900 border-l-[5px]' :
+            scrolledInSection.value === 'contact' ?
+                'border-l-sky-900 border-l-[5px]'  : ''
 })
 
-const fixedInformation = computed(() => {
-    if (Object.values(fixedSectionData).filter(nav => nav.name === currentNavigation.value).length) {        
-            return Object.values(fixedSectionData).filter(nav => nav.name === currentNavigation.value)[0].info
-    } else ''
+window.addEventListener('scroll', e => {
+    if (scrollY > 80) scrollStyle.value = 'max-[640px]:blur-[8px]'
+    else scrollStyle.value = ''
 })
-
-function isInViewport(element) {
-    var rect = element.getBoundingClientRect();
-    var html = document.documentElement;
-
-    return rect.top >= html.clientHeight || rect.top >= window.innerHeight
-    // return (
-    //     rect.top >= 0 &&
-    //     rect.left >= 0 &&
-    //     rect.bottom <= (window.innerHeight || html.clientHeight) &&
-    //     rect.right <= (window.innerWidth || html.clientWidth)
-    // );
-}
-
 </script>
 
 <style scoped>
-    .fixed-section {
-        @apply sticky top-0 left-0 sm:w-[46.18%] hidden sm:flex flex-col gap-[3.3%] text-white h-fit pb-[40px]
-    }
-
-    .nav {
-        @apply transition-all duration-75 font-medium uppercase gap-4 flex flex-col justify-start
-    }
-
-    .social-contact {
-        @apply max-w-[391px]  font-normal text-[11px] grid items-center 
-        custom-screen-sm:gap-[44px] custom-screen-md:text-[14px] gap-2 custom-screen-sm:flex
-    }
-    /* custom-screen-sm:max-w-fit */
-
-    .typography-info, .typography-nav {
-        @apply custom-screen-3xl:text-base gap-2 custom-screen-2xl:text-[14px] custom-screen-xl:text-[12px] custom-screen-lg:text-[10px] text-[9px] 
-    }custom-screen-sm
-
-    .typography-social {
-        @apply custom-screen-2xl:text-[14px] custom-screen-xl:text-[12px] custom-screen-lg:text-[10px] custom-screen-sm:text-[9px] 
+    .fixed {
+        @apply sticky top-[85px] max-[640px]:top-[40px] left-0 max-[640px]:w-full w-[46.18%] flex flex-col gap-[3.3%] pb-[40px] h-[calc(100vh_-_110px)] max-[640px]:h-fit
     }
 </style>
-
-
-
-
-
-
-
-
-
-

@@ -1,34 +1,29 @@
 <template>
-    <div>
-        <SectionInfo
-        :sectionName="contactInfo.name"
-        :fixedHeading="contactInfo.header"
-        :fixedInformation="contactInfo.info"
-        />
-        <div id="contact" class="sm:pt-[73px] pt-10 intersect">
-            <form @submit.prevent class="grid gap-6">
-                <BaseComponentsReusableInput
-                v-for="(input, key, index) in inputs"
-                @modelValue="input.value = $event"
-                :key="index"
-                :id="input.id"
-                :label="input.label"
-                :placeholder="input.placeholder" />
-                <div class="grid gap-1">
-                    <label for="message" class="text-[rgba(255,255,255,0.3)] text-[12px] custom-screen-md:text-[16px] custom-screen-2xl:text-base">Enter message</label>
-                    <textarea v-model="message" class="text-input" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
-                </div>
-                <div class="text-center pt-6">
-                    <button @click.prevent="handleSubmit" class="form-button">SUBMIT</button>
-                </div>
-            </form>
+        <div class="text-sm pb-7 z-[3]" :class="[scrolledInSection !== 'contact' ? 'opacity-5 blur-[2px]' : '']">
+            <div id="contact" class="pt-[73px] intersect bg-[#121212] z-[999]">
+                <form @submit.prevent class="grid gap-6">
+                    <BaseComponentsReusableInput
+                    v-for="(input, key, index) in inputs"
+                    @modelValue="input.value = $event"
+                    :key="index"
+                    :id="input.id"
+                    :label="input.label"
+                    :placeholder="input.placeholder" />
+                    <div class="grid gap-1">
+                        <label for="message" class="text-blue-300 opacity-50">Enter message</label>
+                        <textarea v-model="message" class="text-input ring-[1px]  placeholder:text-neutral-600 ring-blue-900" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="pt-3 text-center">
+                        <button @click.prevent="handleSubmit" class="form-button">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 </template>
 
 <script setup>
-const { fixedSectionData } = allData()
-const contactInfo = fixedSectionData['Contact Me']
+const main = mainStore()
+const {scrolledInSection} = storeToRefs(main)
 
 const inputs = ref([
     {
@@ -67,12 +62,11 @@ const handleSubmit = () => {
 
 <style scoped>
     .form-button {
-        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-slate-200 active:text-black text-center bg-neutral-800 rounded-md py-2 text-[10px] 
-        custom-screen-md:py-4 custom-screen-md:text-[14px] custom-screen-2xl:py-6 custom-screen-2xl:text-base
+        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-blue-700 active:text-black text-center bg-neutral-900 rounded-md py-2 ring-[1px] ring-blue-900 hover:bg-blue-500 hover:text-black
     }
     
     .text-input {
-        @apply h-[170px] py-2 text-[10px] custom-screen-md:py-4 custom-screen-md:text-[14px] custom-screen-2xl:py-6 custom-screen-2xl:text-base text-[rgba(255,255,255,0.4)] placeholder:text-[rgba(255,255,255,0.3)] bg-transparent rounded-md border border-[rgba(255,255,255,0.3)] px-4 w-full outline-none
+        @apply h-[170px] py-2 text-[hsla(0,0%,100%,0)] rounded-md px-4 w-full outline-none text-neutral-700 bg-transparent
     }
 
 </style>

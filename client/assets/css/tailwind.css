@@ -4,12 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -18,10 +14,8 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: #9b9a9a;
-    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #faf8f8;
 }
-

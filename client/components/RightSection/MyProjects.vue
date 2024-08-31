@@ -1,11 +1,6 @@
 <template>
     <div>
-        <SectionInfo
-        :sectionName="projectsInfo.name"
-        :fixedHeading="projectsInfo.header"
-        :fixedInformation="projectsInfo.info"
-        />
-        <div id="projects" class="projects intersect">
+        <div id="projects" class="projects intersect" :class="[scrolledInSection !== 'projects' ? 'opacity-5 blur-[2px]' : '']">
             <BaseComponentsProject
             v-for="index in 5"
             :key="index"
@@ -16,8 +11,16 @@
 </template>
 
 <script setup>
-const { projects, fixedSectionData } = allData()
-const projectsInfo = fixedSectionData['Projects']
+const main = mainStore()
+const {scrolledInSection} = storeToRefs(main)
+
+const projects = ref([{
+        title: 'PROJECT TITLE',
+        info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten',
+        type: 'web and mobile development',
+        link: 'www.google.com',
+        language: 'web'
+    }])
 </script>
 
 <style scoped>

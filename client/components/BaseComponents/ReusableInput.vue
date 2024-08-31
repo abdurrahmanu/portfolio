@@ -1,6 +1,6 @@
 <template>
-    <div class="grid gap-1">
-        <label class="text-[rgba(255,255,255,0.4)] label" :for="id">{{ label }}</label>
+    <div class="grid gap-1 text-sm z-[9999]">
+        <label class="text-blue-300 opacity-50" :for="id">{{ label }}</label>
         <input 
         class="base-input"
         @input="$emit('modelValue', value)" 
@@ -19,19 +19,12 @@ const props = defineProps({
     label: String,
     placeholder: String,
 })
-
 </script>
 
 <style scoped>
     .base-input {
-        @apply outline-none py-2 text-[10px] custom-screen-md:py-4 custom-screen-md:text-[14px] custom-screen-2xl:py-6 custom-screen-2xl:text-base bg-transparent text-[rgba(255,255,255,0.4)] rounded-[6px] w-full px-4 border border-[rgba(255,255,255,0.3)] placeholder:text-[rgba(255,255,255,0.3)]
+        @apply outline-none py-1 rounded-[3px] w-full px-2 bg-transparent ring-[1px] ring-blue-900 placeholder:text-neutral-600
     }
-
-    .label {
-        @apply text-[12px] custom-screen-md:text-[16px] custom-screen-2xl:text-base
-    }
-
-
 </style>
 
 
