@@ -8,8 +8,8 @@
         <p :class="[borderBg]" class="relative pl-2 text-sm leading-7 pacifico">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
         
         <div class="relative flex flex-row items-center justify-between gap-10 m-auto caveat">                
-            <div v-for="(social, index) in socialContact" @click="goTo(social.link)" class="flex items-center gap-[8px] justify-between">
-                <img class="w-3" :src="'linkedin.svg' || svgs[index] + '.svg'" alt="">
+            <div v-for="(svg, index) in svgs" class="flex items-center gap-[8px] justify-between">
+                <img class="w-3" :src="'linkedin.svg' || svg + '.svg'" alt="">
             </div>
         </div>
 
@@ -36,22 +36,6 @@ onMounted(() => {
         scroll.value.style.width = `${scrollPercent.value}%`
     })
 })
-
-const socialContact = [
-        {
-            name: 'Github',
-            link: 'www.google.com'
-        },
-        {
-            name: 'Linkedin',
-            link: 'www.google.com'
-        },
-        {
-            name: 'Download resume',
-            link: 'www.google.com'
-        }
-    ]
-
 
 const borderBg = computed(() => {
     return  scrolledInSection.value === 'about' ?
