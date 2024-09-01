@@ -8,8 +8,8 @@
             <div class="text-xs md:text-sm">{{ project.info }}</div>
             <div class="flex items-center justify-between text-xs">
                 <p class="px-2 py-[5px] rounded-full bg-[#564b04] leading-none text-[#F0DB4F]">{{ project.type }}</p>
-                <div @click="goToProjects" class="flex items-center gap-3 px-3 py-1 rounded-md ring-[1px] ring-neutral-800 hover:ring-red-900 hover:text-green-300 h-fit">
-                    <SvgComponentsArrowSvg class="self-end w-3" />
+                <div class="flex items-center gap-3 px-3 py-1 rounded-md ring-[1px] ring-neutral-800 hover:ring-red-900 hover:text-green-300 h-fit">
+                    <img src="linkedin.svg" class="self-end w-3" />
                 </div>
             </div>
         </div>
