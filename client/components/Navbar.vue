@@ -3,7 +3,7 @@
         <div class="relative flex items-center justify-between w-full max-w-[900px] m-auto rounded-full shadow-black" :class="[openMenu ? 'bg-black rounded-full' : '']">
             
             <div :class="[openMenu ? 'w-[20%] rounded-r-none' : '']" class="flex items-center gap-2 px-2 py-1 bg-black rounded-full">
-                <div @click="toggle" class="w-[10px] h-[10px] bg-white rounded-full"></div>
+                <div class="w-[10px] h-[10px] bg-white rounded-full"></div>
                 <div class="font-bold uppercase caveat">Dorayi</div>
             </div>
             <div ref="menuElement" :class="[openMenu ? 'w-[80%] rounded-l-none ' : 'w-fit']" class="px-2 py-[6px]  rounded-full bg-black relative">
@@ -32,10 +32,6 @@ const navigations = ['About Me', 'My Skills', 'My Projects', 'Contact Me']
 
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
-
-const toggle = () => {
-
-}
 </script>
 
 <style scoped>
