@@ -5,32 +5,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
-const emit = defineEmits(['scrollerDirection'])
 const scrollPosition = ref(window.scrollY)
 const windowHeight = ref(window.innerHeight)
 
-window.addEventListener('scroll', event => {
-    scrollPosition.value = window.scrollY
-    emit('scrollerDirection', scrollerDirection())
-})
+window.addEventListener('scroll', event => scrollPosition.value = window.scrollY)
 
-window.addEventListener('resize', event => {
-    windowHeight.value = window.innerHeight
-    emit('scrollerDirection', scrollerDirection())
-})
+window.addEventListener('resize', event => windowHeight.value = window.innerHeight)
 
 const scrollerDirection = () => {
     const halfScreenHeight = Math.floor(windowHeight.value / 2)
-    if (halfScreenHeight < scrollPosition.value) return 'T'
-    return 'B'
+    halfScreenHeight < scrollPosition.value ? 'top' :'bottom'
 }
 
 const useDirection = () => {
     const height = document.documentElement.scrollHeight
-    if (scrollerDirection() === 'T')  window.scrollTo(0,0)
-    else if (scrollerDirection() === 'B')  window.scrollTo(0, height)
+    if (scrollerDirection() === 'top')  window.scrollTo(0,0)
+    else if (scrollerDirection() === 'bottom')  window.scrollTo(0, height)
 }
 
 </script>
