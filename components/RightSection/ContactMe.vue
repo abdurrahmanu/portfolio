@@ -39,17 +39,12 @@ const input = ref({
         value: ""
 })
 
-
 const message = ref('')
 
 const handleSubmit = () => {
-    const noEmptyFields = ref(false)
-
-    inputs.value.map(input => {
-        if (!input.value.length) {
-            input.placeholder = 'Field cannot be empty' 
-        }
-    })
+    if (!input.value.value.length) {
+        input.value.placeholder = 'Field cannot be empty' 
+    }
 }
 </script>
 
