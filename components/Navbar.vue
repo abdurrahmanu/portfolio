@@ -3,14 +3,14 @@
         <div class="relative flex items-center justify-between w-full max-w-[900px] m-auto rounded-full shadow-black" :class="[openMenu ? 'bg-black rounded-full' : '']">
             <div :class="[openMenu ? 'w-[20%] rounded-r-none' : '']" class="flex items-center gap-2 px-2 py-1 rounded-full shadow-sm bg-neutral-900 shadow-black">
                 <div class="w-[10px] h-[10px] bg-white rounded-full"></div>
-                <div class="pr-2 text-sm font-bold uppercase caveat">Dorayi</div>
+                <div class="pr-2 text-xs font-bold uppercase sm:text-sm caveat">Dorayi</div>
             </div>
-            <div ref="menuElement" :class="[openMenu ? 'w-[80%] rounded-l-none ' : 'w-fit']" class="px-2 py-[6px]  rounded-full bg-neutral-900 relative shadow-sm shadow-black">
+            <div ref="menuElement" :class="[openMenu ? 'w-[80%] rounded-l-none px-2 py-[6px]' : 'w-fit']" class="relative rounded-full shadow-sm bg-neutral-900 shadow-black">
                 <div v-if="openMenu" class="flex items-center justify-between">               
                     <div class="flex items-center justify-around font-sans text-xs transition-all duration-500 w-[95%] max-w-[600px]">
                         
                         <div v-for="(nav, index) in navigations" :key="index" class="relative transition-all duration-150 nav-item">
-                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="uppercase peer" :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(scrolledInSection) ? navText : '']">{{ nav }}</div>
+                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="text-[10px] sm:text-xs lg:text-sm uppercase peer " :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(scrolledInSection) ? navText : '']">{{ nav }}</div>
                             <div v-if="openMenu" :class="[hoveredNav === nav ? hoverShadow : '', nav.toLowerCase().includes(scrolledInSection) ?  navShadow : '']" class="absolute top-0 bottom-0 left-0 right-0 z-[-1] animate-pulse"></div>
                         </div>
                         
@@ -20,7 +20,10 @@
                         <div class="absolute top-0 bottom-0 left-0 right-0 bg-red-600 peer-hover:shadow-[0_3px_30px_3px_#dc2626] z-[-1]"></div>
                     </div>
                 </div>
-                <div @click="openMenu = !openMenu" v-else class="border-y border-white py-[3px] w-[15px]"></div>
+                <div @click="openMenu = !openMenu" class="px-3 py-2" v-else>                    
+                    <div class="border-y border-white py-[3px] w-[15px]">
+                </div>
+                </div>
             </div>
         </div>
         <div class="bg-green-900"></div>

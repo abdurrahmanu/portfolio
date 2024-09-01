@@ -3,13 +3,13 @@
         <div class="h-[50%] rounded-md rounded-b-none">
             <img class="rounded-md rounded-b-none" src="/projectBackground.png" alt="">
         </div>
-        <div class="flex items-center justify-between p-2 px-3">
-            <div class="text-xs font-bold text-red-800 uppercase text-shadow">{{ project.title }}</div>
-            <div class="flex items-center gap-3 px-3 py-1 rounded-md ring-[1px] ring-neutral-800 hover:ring-red-900 hover:text-green-300 h-fit">
-                <img src="/arrow.svg" class="self-end w-3 rotate-[135deg]" />
+        <div class="flex items-center justify-between p-1 px-3">
+            <div class="font-bold text-[10px] text-red-800 uppercase sm:text-xs text-shadow">{{ project.title }}</div>
+            <div class="flex items-center gap-3 sm:px-3 py-1 rounded-md ring-[1px] ring-neutral-800 hover:ring-red-900 hover:text-green-300 h-fit px-2 ">
+                <img src="/arrow.svg" class="self-end sm:w-3 rotate-[135deg] w-2" />
             </div>
         </div>
-        <div class="p-2">{{ project.info }}</div>
+        <div class="p-2 pt-1 text-xs sm:text-sm">{{ project.info }}</div>
     </div>
 </template>
 

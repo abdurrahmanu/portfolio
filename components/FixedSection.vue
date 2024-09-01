@@ -1,11 +1,11 @@
 <template>
-    <div :class="[scrollStyle]" class="fixed space-y-1 max-[640px]:space-y-2 font-sans text-neutral-400">
-        <h1 :class="[headingText]" class="text-2xl text-shadow font-bold md:text-3xl lg:text-4xl max-[640px]:text-center exo">
+    <div :class="[scrollStyle, scrolledInSection === 'contact' ? 'pt-4' : '']" class="fixed space-y-1 max-[640px]:space-y-2 font-sans text-neutral-400">
+        <h1 :class="[headingText]" class="text-xl sm:text-2xl text-shadow font-bold md:text-3xl lg:text-4xl max-[640px]:text-center exo">
             <p>Hello, I'm</p>
             <p>Ahmed Abdulrahman</p>
         </h1>
         
-        <p :class="[borderBg]" class="relative pl-2 text-sm leading-7 exo text-zinc-400">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
+        <p :class="[borderBg]" class="relative pl-2 text-xs leading-5 sm:leading-7 sm:text-sm exo text-zinc-400">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
         
         <div class="relative flex flex-row items-center justify-between gap-10 m-auto caveat">                
             <div v-for="(svg, index) in svgs" class="flex items-center gap-[8px] justify-center rounded-full h-8 text-center w-8 bg-neutral-700 hover:bg-neutral-600 shadow shadow-black">

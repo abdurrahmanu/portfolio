@@ -1,8 +1,8 @@
 <template>
-  <div class="fixed top-0 bottom-0 h-[100vh] border-r-2 z-[9999999] right-0 w-[1px]" :class="[box]"></div>
-  <div class="fixed w-[1px] top-0 bottom-0 left-0 h-[100vh] border-l-2 z-[9999999]" :class="[box]"></div>
-  <div class="fixed h-[1px] bottom-0 left-0 right-0 w-[100vw] border-b-2 z-[9999999]" :class="[box]"></div>
-  <div class="fixed h-[1px] top-0 left-0 right-0 w-[100vw] border-t-2 z-[9999999]" :class="[box]"></div>
+  <div class="fixed top-0 bottom-0 h-[100vh] border-r-[1px] z-[9999999] right-0 w-[1px]" :class="[box]"></div>
+  <div class="fixed w-[1px] top-0 bottom-0 left-0 h-[100vh] border-l-[1px] z-[9999999]" :class="[box]"></div>
+  <div class="fixed h-[1px] bottom-0 left-0 right-0 w-[100vw] border-b-[1px] z-[9999999]" :class="[box]"></div>
+  <div class="fixed h-[1px] top-0 left-0 right-0 w-[100vw] border-t-[1px] z-[9999999]" :class="[box]"></div>
   <div class="selection:bg-transparent exo">
     <Home />
   </div>
@@ -13,10 +13,10 @@ const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
 
 const box = computed(() => {
-  return scrolledInSection.value === 'about' ? 'border-green-900 shadow-[0_2px_30px_2px_#14532d]' :
-                scrolledInSection.value === 'skills' ? 'border-yellow-900 shadow-[0_2px_30px_2px_#713f12]' :
-                  scrolledInSection.value === 'projects' ? 'border-red-900 shadow-[0_2px_30px_2px_#7f1d1d]' :
-                    scrolledInSection.value === 'contact' ? 'border-sky-900 shadow-[0_2px_30px_2px_#0c4a6e]' : 
+  return scrolledInSection.value === 'about' ? 'border-green-900 shadow-[0_2px_40px_2px_#14532d]' :
+                scrolledInSection.value === 'skills' ? 'border-yellow-900 shadow-[0_2px_40px_2px_#713f12]' :
+                  scrolledInSection.value === 'projects' ? 'border-red-900 shadow-[0_2px_40px_2px_#7f1d1d]' :
+                    scrolledInSection.value === 'contact' ? 'border-sky-900 shadow-[0_2px_40px_2px_#0c4a6e]' : 
                       ''
 })
 </script>

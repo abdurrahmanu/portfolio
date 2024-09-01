@@ -1,5 +1,5 @@
 <template>
-        <div class="text-sm pb-16 z-[3] space-y-3 pt-12" :class="[scrolledInSection !== 'contact' ? 'opacity-5 blur-[2px]' : '']">
+        <div class="text-sm pb-[50px] z-[3] space-y-3 pt-12" :class="[scrolledInSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '']">
             <div id="contact" class="intersect bg-[#121212] z-[999]">
                 <form @submit.prevent class="grid gap-6 z-[3]">
                     <div class="grid gap-1 text-sm z-[9999]">
@@ -20,8 +20,8 @@
                     </div>
                 </form>
             </div>
-            <div class="p-2 rounded-md ring-[1px] ring-blue-900 py-5 text-center space-y-2">
-                <p class="hover:text-blue-400 hover:underline hover:underline-offset-[1px]">ahmadabdulrahman103@gmail.com</p>
+            <div class="p-2 rounded-md ring-[1px] ring-blue-900 py-5 text-center space-y-2 text-[11px] sm:text-sm">
+                <p class="hover:text-blue-400 hover:underline hover:underline-offset-[1px] break-words">ahmadabdulrahman103@gmail.com</p>
                 <p>Designed by Ahmed Abdulrahman</p>
                 <p>Copyright 2024</p>
             </div>
@@ -31,6 +31,9 @@
 <script setup>
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
+
+const scrollbar = useScrollBar()
+const {scrollPercent} = storeToRefs(scrollbar)
 
 const input = ref({
         label: 'Full name',

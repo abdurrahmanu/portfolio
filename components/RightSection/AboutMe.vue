@@ -7,7 +7,7 @@
         </div>
         <div v-if="scrolledInSection === 'about'" class="flex justify-center gap-2 pt-3">
             <div @click="current='first'" :class="[current === 'first' ? 'bg-green-700' : 'bg-white']" class="w-2 h-2 rounded-full"></div>
-            <div @click="current='second'" :class="[current === 'second' ? 'bg-green-700' : 'bg-white']" class="w-2 h-2 bg-white rounded-full"></div>
+            <div @click="current='second'" :class="[current === 'second' ? 'bg-green-700' : 'bg-white']" class="w-2 h-2 rounded-full"></div>
         </div>
 </template>
 
@@ -20,6 +20,6 @@ const {scrolledInSection} = storeToRefs(main)
 
 <style scoped>
 .image {
-    @apply w-[70%] bg-neutral-900 rounded-md h-fit max-h-[400px]
+    @apply w-[80%] bg-neutral-900 rounded-md h-fit max-h-[400px]
 }
 </style>
