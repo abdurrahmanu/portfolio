@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div id="projects" class="projects intersect" :class="[scrolledInSection !== 'projects' ? 'opacity-5 blur-[2px]' : '']">
+        <div id="projects" class="flex flex-col pt-16 gap-9 intersect" :class="[scrolledInSection !== 'projects' ? 'opacity-5 blur-[2px]' : '']">
             <BaseComponentsProject
-            v-for="index in 5"
+            v-for="(project, index) in projects"
             :key="index"
             :index="index"
-            :project="projects[0]" />
+            :project="project" />
         </div>
     </div>
 </template>
@@ -14,17 +14,48 @@
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
 
-const projects = ref([{
-        title: 'PROJECT TITLE',
-        info: 'Lörem ipsum vara på tårna derade därade. Stenoll guldsot nekodade. Plabel nenar jån tasigförsamhet gubelt plade. Faledes nivinade vyv, förutom demicentrism i eulor fäbiktiga förlåtandeintervall. Kuv kövis. Infraktigt trir, jinas att geor utvigning, blockchain. Soheten',
-        type: 'web and mobile development',
-        link: 'www.google.com',
-        language: 'web'
-    }])
+const projects = ref([
+    {
+        title: 'kiBoard',
+        link: 'http://dorayi-typing.netlify.app/',
+        code: 'https://github.com/abdurrahmanu/learn-typing',
+        info: 'A highly customizable typing app. It was made with the intention to improve your typing skills and most importantly your fluidity and speed',
+        img: ''
+    },
+    {
+        title: 'Tic Tac Toe',
+        link: 'http://myxando.netlify.app',
+        code: 'https://github.com/abdurrahmanu/tic-tac-toe',
+        info: 'A simple tic-tac-toe game with nice user experience. I implemented all logic from scratch.',
+        img: ''
+    },
+    {
+        title: 'Xpressway Logistics',
+        link: 'https://xpressway-logistics.web.app',
+        code: 'https://github.com/abdurrahmanu/dorayii.git',
+        info: 'This is a mock transport logistics company website.',
+        img: ''
+    },
+    {
+        title: 'Airbnb Homepage',
+        link: 'https://air-bnb-homepage.netlify.app',
+        code: 'https://github.com/abdurrahmanu/airbnb',
+        info: 'Tried recreating airbnb homepage.',
+        img: ''
+    },
+    {
+        title: 'Loyalty Management Landing page',
+        link: 'http://loyalty-mgt.netlify.app',
+        code: 'https://github.com/abdurrahmanu/loyalty-management',
+        info: 'A very beautiful UI, I did this as an internship task.',
+        img: ''
+    },
+    {
+        title: 'Dictionary',
+        link: 'http://qamus.netlify.app',
+        code: 'https://github.com/abdurrahmanu/qamus',
+        info: 'This dictionary fetches real time data from an external API.',
+        img: ''
+    },
+])
 </script>
-
-<style scoped>
-.projects {
-    @apply flex flex-col gap-9 sm:pt-[73px] pt-10 transition-all duration-300
-}
-</style>

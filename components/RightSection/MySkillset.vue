@@ -1,6 +1,6 @@
 <template>
     <div :class="[scrolledInSection !== 'skills' ? 'opacity-5 blur-[2px]' : '']">
-        <div id="skills" class="skills intersect">
+        <div id="skills" class="flex flex-col gap-[20px] intersect pt-16">
             <BaseComponentsSkill 
             v-for="(skill, index) in skillSet"
             :index="index"
@@ -15,33 +15,35 @@
 <script setup>
 const skillSet = [
         {
-            svg: 'react',
-            name: 'React Native',
-            info: 'Lörem ipsum finanssmälta konsocial i sukrolingar ber, i diabelt det prebåst utan transfett, i rer homoktigt och decis.'
+            svg: 'nuxt',
+            name: 'NuxtJS'
         },
         {
-            svg: 'javascript',
-            name: 'JavaScript',
-            info: 'Lörem ipsum finanssmälta konsocial i sukrolingar ber, i diabelt det prebåst utan transfett, i rer homoktigt och decis.'
+            svg: 'vue',
+            name: 'VueJS'
         },
         {
-            svg: 'python',
-            name: 'Python',
-            info: 'Lörem ipsum finanssmälta konsocial i sukrolingar ber, i diabelt det prebåst utan transfett, i rer homoktigt och decis.'
+            svg: 'js',
+            name: 'JavaScript'
+        },
+        {
+            svg: 'tailwindcss',
+            name: 'TailwindCSS'
         },
         {
             svg: 'node',
-            name: 'Node Js',
-            info: 'Lörem ipsum finanssmälta konsocial i sukrolingar ber, i diabelt det prebåst utan transfett, i rer homoktigt och decis.'
+            name: 'NodeJS'
+        },
+        {
+            svg: 'github',
+            name: 'Github'
+        },
+        {
+            svg: 'firebase',
+            name: 'FireStore'
         }
     ]
 
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
 </script>
-
-<style scoped>
-.skills {
-    @apply flex flex-col gap-[27px] sm:pt-[73px] pt-10
-}
-</style>

@@ -1,22 +1,29 @@
 <template>
-        <div class="text-sm pb-7 z-[3]" :class="[scrolledInSection !== 'contact' ? 'opacity-5 blur-[2px]' : '']">
-            <div id="contact" class="pt-[73px] intersect bg-[#121212] z-[999]">
-                <form @submit.prevent class="grid gap-6">
-                    <BaseComponentsReusableInput
-                    v-for="(input, key, index) in inputs"
-                    @modelValue="input.value = $event"
-                    :key="index"
-                    :id="input.id"
-                    :label="input.label"
-                    :placeholder="input.placeholder" />
-                    <div class="grid gap-1">
+        <div class="text-sm pb-16 z-[3] space-y-3 pt-12" :class="[scrolledInSection !== 'contact' ? 'opacity-5 blur-[2px]' : '']">
+            <div id="contact" class="intersect bg-[#121212] z-[999]">
+                <form @submit.prevent class="grid gap-6 z-[3]">
+                    <div class="grid gap-1 text-sm z-[9999]">
+                        <label class="text-blue-300 opacity-50" for="name">{{ input.label }}</label>
+                        <input 
+                        class="base-input"
+                        v-model="input.value" 
+                        type="text" 
+                        id="name"
+                        :placeholder="input.placeholder">
+                    </div>
+                    <div class="grid gap-1 z-[3]">
                         <label for="message" class="text-blue-300 opacity-50">Enter message</label>
                         <textarea v-model="message" class="text-input ring-[1px]  placeholder:text-neutral-600 ring-blue-900" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
                     </div>
-                    <div class="pt-3 text-center">
-                        <button @click.prevent="handleSubmit" class="form-button">SUBMIT</button>
+                    <div class="pt-3 text-center z-[3]">
+                        <button @click.prevent="handleSubmit" class="form-button">SEND</button>
                     </div>
                 </form>
+            </div>
+            <div class="p-2 rounded-md ring-[1px] ring-blue-900 py-5 text-center space-y-2">
+                <p class="hover:text-blue-400 hover:underline hover:underline-offset-[1px]">ahmadabdulrahman103@gmail.com</p>
+                <p>Designed by Ahmed Abdulrahman</p>
+                <p>Copyright 2024</p>
             </div>
         </div>
 </template>
@@ -25,27 +32,13 @@
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
 
-const inputs = ref([
-    {
+const input = ref({
         label: 'Full name',
         id: 'name',
         placeholder: 'Enter full name',
         value: ""
-        
-    },
-    {
-        label: 'Email address',
-        id: 'email',
-        placeholder: 'eg johndoe@mail.com',
-        value: ""
-    },
-    {
-        label: 'Phone',
-        id: 'id',
-        placeholder: '+234 70223967632',
-        value: ""
-    }
-])
+})
+
 
 const message = ref('')
 
@@ -69,4 +62,7 @@ const handleSubmit = () => {
         @apply h-[170px] py-2 text-[hsla(0,0%,100%,0)] rounded-md px-4 w-full outline-none text-neutral-700 bg-transparent
     }
 
+    .base-input {
+        @apply outline-none py-1 rounded-[3px] w-full px-2 bg-transparent ring-[1px] ring-blue-900 placeholder:text-neutral-600
+    }
 </style>
