@@ -12,5 +12,6 @@ export const useScrollBar = defineStore('scroll', () => {
 
     return {
         scrollPercent,
+        scrollEvent
     }
 })
