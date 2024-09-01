@@ -2,8 +2,7 @@
     <div class="text-[10px] nav font-sans z-[9]">
         <div class="relative flex items-center justify-between w-full max-w-[900px] m-auto rounded-full shadow-black" :class="[openMenu ? 'bg-black rounded-full' : '']">
             <div :class="[openMenu ? 'w-[20%] rounded-r-none' : '']" class="flex items-center gap-2 px-2 py-1 rounded-full shadow-sm bg-neutral-900 shadow-black">
-                <div class="w-[10px] h-[10px] bg-white rounded-full"></div>
-                <div class="pr-2 text-xs font-bold uppercase sm:text-sm caveat">Dorayi</div>
+                <div class="px-3 py-1 text-xs font-bold text-white uppercase sm:text-sm caveat">Dorayi</div>
             </div>
             <div ref="menuElement" :class="[openMenu ? 'w-[80%] rounded-l-none px-2 py-[6px]' : 'w-fit']" class="relative rounded-full shadow-sm bg-neutral-900 shadow-black">
                 <div v-if="openMenu" class="flex items-center justify-between">               

@@ -1,7 +1,7 @@
 <template>
     <div class="px-5 sm:px-10 lg:px-24 bg-[#121212] pb-[40px] m-auto w-fit text-slate-400 home">
         <Navbar />
-        <div class=" flex gap-[5.1%] max-w-[1230px] px-6 m-auto w-fit max-[640px]:flex-col">
+        <div class=" flex gap-[5.1%] max-w-[1230px] px-6 m-auto max-[640px]:flex-col">
             <FixedSection />
             <RightSection />
         </div>

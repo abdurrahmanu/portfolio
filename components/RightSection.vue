@@ -14,6 +14,6 @@
 
 <style scoped>
     .right-section {
-        @apply sm:w-[48.7%] max-[640px]:w-[80%] max-[640px]:m-auto max-[640px]:max-w-full max-w-[598px] flex flex-col
+        @apply w-[48.7%] max-[640px]:w-[70%] min-w-[300px] max-[640px]:m-auto max-w-[598px] flex flex-col
     }
 </style>
