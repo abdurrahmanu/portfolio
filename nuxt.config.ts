@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   //   },
   // },
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@vueuse/motion/nuxt', '@pinia/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   // pinia: {
   //   storesDirs: ['./stores/**', './custom-folder/stores/**'],
   // },
