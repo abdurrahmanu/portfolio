@@ -6,7 +6,7 @@
         </h1>
         
         <p :class="[borderBg]" class="relative pl-2 text-sm my-md:leading-7 exo text-zinc-500 sm:leading-6">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
-        
+
         <div class="border-b border-b-neutral-800 my-md:hidden my-md:bg-red-500">
             <div class="h-[2px] bg-neutral-600">
                 <div ref="scroll" :class="[scrolledInSection === 'about' ? 'bg-green-700 after:shadow-green-500' : scrolledInSection === 'skills' ? 'bg-yellow-700 after:shadow-yellow-500' : scrolledInSection === 'projects' ? 'bg-red-700 after:shadow-red-500' : 'bg-sky-900 after:shadow-sky-900']" class="h-[2px] after:absolute after:p-[1px] after:shadow-lg after:right-0 relative"></div>
