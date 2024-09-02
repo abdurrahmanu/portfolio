@@ -1,5 +1,5 @@
 <template>
-        <div class="text-sm pb-[50px] z-[3] space-y-3 pt-12" :class="[scrolledInSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '']">
+        <div class="text-sm pb-[50px] z-[3] space-y-3 pt-12" :class="[scrolledInSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', scrolledInSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
             <div id="contact" class="intersect bg-[#121212] z-[999]">
                 <form @submit.prevent class="grid gap-6 z-[3]">
                     <div class="grid gap-1 text-sm z-[9999]">

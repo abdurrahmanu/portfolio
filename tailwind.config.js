@@ -16,9 +16,10 @@ module.exports = {
       // fontSize: {
       //   'custom-sm': '30px',
       // },
-      // screens: {
-      //   'screen-xxxs': {'min': '400px'},
-      // },
+      screens: {
+        'my-md': {'max': '640px'},
+        'my-md': {'max': '640px'},
+      },
     },
   },
   plugins: [],

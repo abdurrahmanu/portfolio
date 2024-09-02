@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div id="projects" class="flex flex-col pt-16 gap-9 intersect" :class="[scrolledInSection !== 'projects' || scrollPercent === 0 ? 'opacity-5 blur-[2px]' : '']">
+        <div id="projects" class="flex flex-col pt-16 gap-9 intersect" :class="[scrolledInSection !== 'projects' || scrollPercent === 100 ? 'opacity-5 blur-[2px]' : '']">
             <BaseComponentsProject
             v-for="(project, index) in projects"
             :key="index"

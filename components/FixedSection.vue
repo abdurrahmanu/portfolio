@@ -1,19 +1,13 @@
 <template>
-    <div :class="[scrollStyle, scrolledInSection === 'contact' ? 'pt-4' : '']" class="fixed space-y-1 max-[640px]:space-y-2 font-sans text-neutral-400">
-        <h1 :class="[headingText]" class="text-xl sm:text-2xl text-shadow font-bold md:text-3xl lg:text-4xl max-[640px]:text-center exo">
+    <div :class="[scrollStyle, scrolledInSection === 'contact' ? 'pt-4' : '']" class="fixed space-y-[2px] font-sans text-neutral-400 my-md:pt-6 my-md:m-auto max-w-[500px]">
+        <h1 :class="[headingText]" class="text-lg font-bold leading-none my-md:text-2xl sm:text-xl text-shadow md:text-2xl lg:text-3xl exo">
             <p>Hello, I'm</p>
             <p>Ahmed Abdulrahman</p>
         </h1>
         
-        <p :class="[borderBg]" class="relative pl-2 text-xs leading-5 sm:leading-7 sm:text-sm exo text-zinc-400">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
+        <p :class="[borderBg]" class="relative pl-2 text-sm my-md:leading-7 exo text-zinc-500 sm:leading-6">I'm a frontend web developer with expertise in HTML, JavaScript, CSS, Vue.js, Tailwind CSS, Git, GitHub, and Firebase. Passionate about crafting captivating user experiences and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. Contact me, let's build something amazing together!</p>
         
-        <div class="relative flex flex-row items-center justify-between gap-10 m-auto caveat">                
-            <div v-for="(svg, index) in svgs" class="flex items-center gap-[8px] justify-center rounded-full h-8 text-center w-8 bg-neutral-700 hover:bg-neutral-600 shadow shadow-black">
-                <img :class="[svg === 'arrow' ? 'rotate-[-90deg] w-4' : 'w-6']" :src="svg + '.svg'" alt="">
-            </div>
-        </div>
-
-        <div class="border-b border-b-neutral-800">
+        <div class="border-b border-b-neutral-800 my-md:hidden my-md:bg-red-500">
             <div class="h-[2px] bg-neutral-600">
                 <div ref="scroll" :class="[scrolledInSection === 'about' ? 'bg-green-700 after:shadow-green-500' : scrolledInSection === 'skills' ? 'bg-yellow-700 after:shadow-yellow-500' : scrolledInSection === 'projects' ? 'bg-red-700 after:shadow-red-500' : 'bg-sky-900 after:shadow-sky-900']" class="h-[2px] after:absolute after:p-[1px] after:shadow-lg after:right-0 relative"></div>
             </div>
@@ -49,7 +43,7 @@ const borderBg = computed(() => {
 })
 
 window.addEventListener('scroll', e => {
-    if (scrollY > 80) scrollStyle.value = 'max-[640px]:blur-[8px]'
+    if (scrollY > 80) scrollStyle.value = 'my-md:blur-[8px]'
     else scrollStyle.value = ''
 })
 
@@ -67,7 +61,7 @@ const headingText = computed(() => {
 
 <style scoped>
     .fixed {
-        @apply sticky top-[85px] max-[640px]:top-[40px] left-0 max-[640px]:w-full w-[46.18%] flex flex-col gap-[3.3%] pb-[40px] h-[calc(100vh_-_110px)] max-[640px]:h-fit
+        @apply sticky top-[85px] my-md:top-[40px] left-0 my-md:w-full w-[46.18%] flex flex-col gap-[3.3%] pb-[40px] h-[calc(100vh_-_110px)] my-md:h-fit
     }
 
     .text-shadow {

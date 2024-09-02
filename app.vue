@@ -5,7 +5,8 @@
   <div class="fixed h-[1px] top-0 left-0 right-0 w-[100vw] border-t-[1px] z-[9999999]" :class="[box]"></div>
   <!-- <div ref="mouseEl"  class="fixed w-2 h-2 bg-red-400 rounded-full z-[999999] translate-x-[-50%] translate-y-[-50%]"></div> -->
   <!-- <div ref="draggableEl" class="fixed z-[999999999999999] hover:bg-green-300 cursor-move" draggable="true">asdfasdfasdf</div> -->
-  <div class="selection:bg-transparent exo">
+
+  <div class="selection:bg-transparent exo bg-[#121212]">
     <Home />
   </div>
 </template>

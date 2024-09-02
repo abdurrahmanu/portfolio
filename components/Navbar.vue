@@ -9,7 +9,7 @@
                     <div class="flex items-center justify-around font-sans text-xs transition-all duration-500 w-[95%] max-w-[600px]">
                         
                         <div v-for="(nav, index) in navigations" :key="index" class="relative transition-all duration-150 nav-item">
-                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="text-[10px] sm:text-xs lg:text-sm uppercase peer " :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(scrolledInSection) ? navText : '']">{{ nav }}</div>
+                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="text-[10px] sm:text-xs lg:text-sm uppercase peer " :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(scrolledInSection) ? navText: '']">{{ nav }}</div>
                             <div v-if="openMenu" :class="[hoveredNav === nav ? hoverShadow : '', nav.toLowerCase().includes(scrolledInSection) ?  navShadow : '']" class="absolute top-0 bottom-0 left-0 right-0 z-[-1] animate-pulse"></div>
                         </div>
                         
@@ -31,6 +31,7 @@
 
 <script setup>
 const nav_ = ref('about')
+const tempNav = ref(null)
 const hoveredNav = ref('')
 const openMenu = ref(false);
 const menuElement = ref(null)
@@ -39,19 +40,22 @@ const navigations = ['about', 'skills', 'projects', 'contact']
 const main = mainStore()
 const {scrolledInSection} = storeToRefs(main)
 
+const scrollbar = useScrollBar()
+const {scrollPercent} = storeToRefs(scrollbar)
+
 const navShadow = computed(() => {
     return nav_.value.includes('about') && scrolledInSection.value === 'about' ? 'shadow-[0_2px_30px_2px_#14532d]' :
         nav_.value.includes('skills') && scrolledInSection.value === 'skills' ? 'shadow-[0_2px_30px_2px_#713f12]' :
-            nav_.value.includes('projects') && scrolledInSection.value === 'projects' ? 'shadow-[0_2px_30px_2px_#7f1d1d]' :
-                nav_.value.includes('contact') && scrolledInSection.value === 'contact' ? 'shadow-[0_2px_30px_2px_#0c4a6e]'  :
+            nav_.value.includes('projects') && scrolledInSection.value === 'projects' && scrollPercent.value !== 100 ? 'shadow-[0_2px_30px_2px_#7f1d1d]' :
+                nav_.value.includes('contact') && scrolledInSection.value === 'contact' || scrollPercent.value == 100 ?  'shadow-[0_2px_30px_2px_#0c4a6e]'  :
                     ''
 })
 
 const navText = computed(() => {
     return nav_.value.includes('about') && scrolledInSection.value === 'about' ? 'text-green-500' :
         nav_.value.includes('skills') && scrolledInSection.value === 'skills' ? 'text-yellow-500' :
-            nav_.value.includes('projects') && scrolledInSection.value === 'projects' ? 'text-red-500' :
-                nav_.value.includes('contact') && scrolledInSection.value === 'contact' ? 'text-sky-500'  :
+            nav_.value.includes('projects') && scrolledInSection.value === 'projects' && scrollPercent.value !== 100 ? 'text-red-500' :
+                nav_.value.includes('contact') && scrolledInSection.value === 'contact' || scrollPercent.value == 100 ?  'text-sky-500'  :
                     ''
 })
 
@@ -86,6 +90,18 @@ const goToSection = (section) => {
     }
 }
 
+watch(scrollPercent, (newVal, oldVal) => {
+    if (newVal === 100) {
+        scrolledInSection.value = 'contact'
+        tempNav.value = 'contact'
+    }
+
+    if (oldVal === 100 && tempNav.value === 'contact') {
+        tempNav.value = null
+        scrolledInSection.value = 'projects'
+    }
+})
+
 watch(scrolledInSection, newVal => {
     nav_.value = newVal
 })
@@ -93,6 +109,6 @@ watch(scrolledInSection, newVal => {
 
 <style scoped>
 .nav {
-    @apply w-full sm:sticky max-w-[1228px] m-auto fixed top-0 left-0 px-6 text-[10px] flex justify-around items-center py-6 max-[640px]:min-h-[40px] min-h-[20px] max-[640px]:py-2
+    @apply w-full sm:sticky max-w-[1228px] m-auto fixed top-0 left-0 px-6 text-[10px] flex justify-around items-center py-6 my-md:min-h-[40px] min-h-[20px] my-md:py-4
 }
 </style>
