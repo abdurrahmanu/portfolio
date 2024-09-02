@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between p-1 px-3">
             <div class="font-bold text-[10px] text-red-800 uppercase sm:text-xs text-shadow">{{ project.title }}</div>
             <div class="flex items-center gap-3 sm:px-3 py-1 rounded-md ring-[1px] ring-neutral-800 hover:ring-red-900 hover:text-green-300 h-fit px-2 ">
-                <img src="/arrow.svg" class="self-end sm:w-3 rotate-[135deg] w-2" />
+                <img src="/arrow-up.svg" class="self-end w-2 sm:w-3" />
             </div>
         </div>
         <div class="p-2 pt-1 text-xs sm:text-sm">{{ project.info }}</div>

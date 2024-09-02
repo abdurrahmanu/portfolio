@@ -6,6 +6,7 @@
             :index="index"
             :key="index"
             :svg="skill.svg"
+            :dark="skill.darkSvg"
             :skillName="skill.name"
             :skillInfo="skill.info" />
         </div>
@@ -15,31 +16,38 @@
 <script setup>
 const skillSet = [
         {
-            svg: 'nuxt',
+            svg: 'nuxt-c',
+            darkSvg: 'nuxt-b',
             name: 'NuxtJS'
         },
         {
-            svg: 'vue',
+            svg: 'vue-c',
+            darkSvg: 'vue-b',
             name: 'VueJS'
         },
         {
-            svg: 'js',
+            svg: 'js-c',
+            darkSvg: 'js-b',
             name: 'JavaScript'
         },
         {
-            svg: 'tailwindcss',
+            svg: 'tailwindcss-c',
+            darkSvg: 'tailwindcss-b',
             name: 'TailwindCSS'
         },
         {
-            svg: 'node',
+            svg: 'nodejs-c',
+            darkSvg: 'nodejs-b',
             name: 'NodeJS'
         },
         {
-            svg: 'github',
+            svg: 'github-c',
+            darkSvg: 'github-b',
             name: 'Github'
         },
         {
-            svg: 'firebase',
+            svg: 'firebase-c',
+            darkSvg: 'firebase-b',
             name: 'FireStore'
         }
     ]
