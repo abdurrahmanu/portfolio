@@ -20,7 +20,6 @@ const props = defineProps({
     index: Number,
     project: Object,
 })
-
 </script>
 
 <style scoped>
