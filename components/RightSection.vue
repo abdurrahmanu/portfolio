@@ -2,8 +2,8 @@
     <div class="right-section">
         <div class="lg:w-[90%] lg:m-auto max-w-[500px] space-y-4">            
             <RightSectionAboutMe />
-            <RightSectionMySkillset />
-            <RightSectionMyProjects  />
+            <RightSectionSkills />
+            <RightSectionProjects  />
             <RightSectionContactMe />
         </div>
     </div>

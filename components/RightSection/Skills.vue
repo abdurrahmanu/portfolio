@@ -1,7 +1,7 @@
 <template>
     <div :class="[scrolledInSection !== 'skills' ? 'opacity-5 blur-[2px]' : '']">
         <div id="skills" class="flex flex-col gap-[20px] intersect pt-16">
-            <BaseComponentsSkill 
+            <Skill 
             v-for="(skill, index) in skillSet"
             :index="index"
             :key="index"
