@@ -7,10 +7,10 @@
             <div ref="menuElement" :class="[openMenu ? 'w-[80%] rounded-l-none px-2 py-[6px]' : 'w-fit']" class="relative rounded-full shadow-sm bg-neutral-900 shadow-black">
                 <div v-if="openMenu" class="flex items-center justify-between">               
                     <div class="flex items-center justify-around font-sans text-xs transition-all duration-500 w-[95%] max-w-[600px]">
-                        
+
                         <div v-for="(nav, index) in navigations" :key="index" class="relative transition-all duration-150 nav-item">
-                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="text-[10px] sm:text-xs lg:text-sm uppercase peer " :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(scrolledInSection) ? navText: '']">{{ nav }}</div>
-                            <div v-if="openMenu" :class="[hoveredNav === nav ? hoverShadow : '', nav.toLowerCase().includes(scrolledInSection) ?  navShadow : '']" class="absolute top-0 bottom-0 left-0 right-0 z-[-1] animate-pulse"></div>
+                            <div @mouseover="hoveredNav = nav" @mouseleave="hoveredNav = ''" @click="goToSection(nav)" class="text-[10px] sm:text-xs lg:text-sm uppercase peer  exo" :class="[hoveredNav === nav ? hoverText : '', nav.toLowerCase().includes(currentSection) ? navText: '']">{{ nav }}</div>
+                            <div v-if="openMenu" :class="[hoveredNav === nav ? hoverShadow : '', nav.toLowerCase().includes(currentSection) ?  navShadow : '']" class="absolute top-0 bottom-0 left-0 right-0 z-[-1] animate-pulse"></div>
                         </div>
                         
                     </div>
@@ -38,24 +38,24 @@ const menuElement = ref(null)
 const navigations = ['about', 'skills', 'projects', 'contact']
 
 const main = mainStore()
-const {scrolledInSection} = storeToRefs(main)
+const {currentSection} = storeToRefs(main)
 
 const scrollbar = useScrollBar()
 const {scrollPercent} = storeToRefs(scrollbar)
 
 const navShadow = computed(() => {
-    return nav_.value.includes('about') && scrolledInSection.value === 'about' ? 'shadow-[0_2px_30px_2px_#14532d]' :
-        nav_.value.includes('skills') && scrolledInSection.value === 'skills' ? 'shadow-[0_2px_30px_2px_#713f12]' :
-            nav_.value.includes('projects') && scrolledInSection.value === 'projects' && scrollPercent.value !== 100 ? 'shadow-[0_2px_30px_2px_#7f1d1d]' :
-                nav_.value.includes('contact') && scrolledInSection.value === 'contact' || scrollPercent.value == 100 ?  'shadow-[0_2px_30px_2px_#0c4a6e]'  :
+    return nav_.value.includes('about') && currentSection.value === 'about' ? 'shadow-[0_2px_30px_2px_#14532d]' :
+        nav_.value.includes('skills') && currentSection.value === 'skills' ? 'shadow-[0_2px_30px_2px_#713f12]' :
+            nav_.value.includes('projects') && currentSection.value === 'projects' && scrollPercent.value !== 100 ? 'shadow-[0_2px_30px_2px_#7f1d1d]' :
+                nav_.value.includes('contact') && currentSection.value === 'contact' || scrollPercent.value == 100 ?  'shadow-[0_2px_30px_2px_#0c4a6e]'  :
                     ''
 })
 
 const navText = computed(() => {
-    return nav_.value.includes('about') && scrolledInSection.value === 'about' ? 'text-green-500' :
-        nav_.value.includes('skills') && scrolledInSection.value === 'skills' ? 'text-yellow-500' :
-            nav_.value.includes('projects') && scrolledInSection.value === 'projects' && scrollPercent.value !== 100 ? 'text-red-500' :
-                nav_.value.includes('contact') && scrolledInSection.value === 'contact' || scrollPercent.value == 100 ?  'text-sky-500'  :
+    return nav_.value.includes('about') && currentSection.value === 'about' ? 'text-green-500' :
+        nav_.value.includes('skills') && currentSection.value === 'skills' ? 'text-yellow-500' :
+            nav_.value.includes('projects') && currentSection.value === 'projects' && scrollPercent.value !== 100 ? 'text-red-500' :
+                nav_.value.includes('contact') && currentSection.value === 'contact' || scrollPercent.value == 100 ?  'text-sky-500'  :
                     ''
 })
 
@@ -76,8 +76,8 @@ const hoverText = computed(() => {
 })
 
 const goToSection = (section) => {
-    if (scrolledInSection.value === section) return
-    scrolledInSection.value = section
+    if (currentSection.value === section) return
+    currentSection.value = section
     if (section === 'about') {
         window.scrollTo(0, 0)
     }
@@ -91,18 +91,18 @@ const goToSection = (section) => {
 }
 
 watch(scrollPercent, (newVal, oldVal) => {
-    if (newVal === 100) {
-        scrolledInSection.value = 'contact'
+    if (newVal > 98) {
+        currentSection.value = 'contact'
         tempNav.value = 'contact'
     }
 
-    if (oldVal === 100 && tempNav.value === 'contact') {
+    if (oldVal > 98 && newVal < oldVal && tempNav.value === 'contact') {
         tempNav.value = null
-        scrolledInSection.value = 'projects'
+        currentSection.value = 'projects'
     }
 })
 
-watch(scrolledInSection, newVal => {
+watch(currentSection, newVal => {
     nav_.value = newVal
 })
 </script>

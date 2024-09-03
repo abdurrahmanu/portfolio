@@ -1,6 +1,6 @@
 <template>
-    <div :class="[scrolledInSection !== 'skills' ? 'opacity-5 blur-[2px]' : '']">
-        <div id="skills" class="flex flex-col gap-[20px] intersect pt-16">
+    <div :class="[currentSection !== 'skills' ? 'opacity-5 blur-[2px]' : '']">
+        <div id="skills" class="flex flex-col gap-[20px] intersect pt-[75px]">
             <Skill 
             v-for="(skill, index) in skillSet"
             :index="index"
@@ -53,5 +53,5 @@ const skillSet = [
     ]
 
 const main = mainStore()
-const {scrolledInSection} = storeToRefs(main)
+const {currentSection} = storeToRefs(main)
 </script>

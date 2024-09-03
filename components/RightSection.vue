@@ -1,16 +1,13 @@
 <template>
-    <div class="right-section">
+    <section class="right-section">
         <div class="lg:w-[90%] lg:m-auto max-w-[500px] space-y-4">            
-            <RightSectionAboutMe />
-            <RightSectionSkills />
-            <RightSectionProjects  />
-            <RightSectionContactMe />
+            <About />
+            <Skills />
+            <Projects  />
+            <Contact />
         </div>
-    </div>
+    </section>
 </template>
-
-<script setup>
-</script>
 
 <style scoped>
     .right-section {

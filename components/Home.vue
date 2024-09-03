@@ -11,7 +11,7 @@
 <script setup>
 const observer = ref(null)
 const main = mainStore()
-const {scrolledInSection} = storeToRefs(main)
+const {currentSection} = storeToRefs(main)
 
 const unobserveIntersection = () => {
     document.querySelectorAll('.intersect').forEach((section) => {
@@ -23,7 +23,7 @@ onMounted(() => {
     observer.value = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                scrolledInSection.value = entry.target.id
+                currentSection.value = entry.target.id
             }
         });
     },
@@ -36,43 +36,4 @@ onMounted(() => {
 })
 
 onUnmounted(() => unobserveIntersection());
-
-// const track = computed(() => {
-//     return scrolledInSection.value === 'about' ?
-//         'green' : scrolledInSection.value === 'skills' ?
-//             'yellow' : scrolledInSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
-
-// const thumb = computed(() => {
-//     return scrolledInSection.value === 'about' ?
-//         'green' : scrolledInSection.value === 'skills' ?
-//             'yellow' : scrolledInSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
-
-// const thumbHover = computed(() => {
-//     return scrolledInSection.value === 'about' ?
-//         'green' : scrolledInSection.value === 'skills' ?
-//             'yellow' : scrolledInSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
-
 </script>
-
-<!-- <style>
-::-webkit-scrollbar-track {
-    background: v-bind(track);
-}
-
-::-webkit-scrollbar-thumb {
-    background: v-bind(thumb);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: v-bind(thumbHover);
-}
-</style> -->
