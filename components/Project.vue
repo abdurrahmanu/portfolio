@@ -1,5 +1,5 @@
 <template>
-    <div class="space-y-1 text-sm rounded-md ring-[1px] ring-red-900 shadow-md shadow-black hover:shadow-sm bg-[#121212]">
+    <div class="space-y-1 text-sm rounded-md ring-[1px] ring-red-900 shadow-md shadow-black hover:shadow-sm bg-[#121212]  max-w-[350px] m-auto">
         <div class="rounded-md rounded-b-none">
             <img class="relative bg-black rounded-md rounded-b-none"  :src="'/' + img + '.jpg'" alt="">
         </div>

@@ -1,6 +1,6 @@
 <template>
-        <div class="text-sm pb-[50px] z-[3] space-y-3 pt-12" :class="[currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
-            <div id="contact" class="intersect bg-[#121212] z-[999]">
+        <div class="text-sm pb-[50px] z-[3] space-y-3 intersect" :class="[currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '', tempNav ? 'pt-0' : 'pt-20']">
+            <div id="contact" class="bg-[#121212] z-[999]">
                 <form @submit.prevent class="grid gap-6 z-[3]">
                     <div class="grid gap-1 text-sm z-[9999]">
                         <label class="text-blue-300 opacity-50" for="name">{{ input.label }}</label>
@@ -30,7 +30,7 @@
 
 <script setup>
 const main = mainStore()
-const {currentSection} = storeToRefs(main)
+const {currentSection, tempNav} = storeToRefs(main)
 
 const scrollbar = useScrollBar()
 const {scrollPercent} = storeToRefs(scrollbar)
@@ -53,7 +53,7 @@ const handleSubmit = () => {
 
 <style scoped>
     .form-button {
-        @apply w-full border-t border-white border-opacity-[0.1] shadow-md active:bg-blue-700 active:text-black text-center bg-neutral-900 rounded-md py-2 ring-[1px] ring-blue-900 hover:bg-blue-500 hover:text-black
+        @apply w-full border-t border-white border-opacity-[0.1] transition-all duration-200 shadow-md active:bg-blue-700 active:text-black text-center bg-neutral-900 rounded-md py-2 ring-[1px] ring-blue-900 hover:bg-blue-500 hover:text-black
     }
     
     .text-input {
