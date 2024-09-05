@@ -1,7 +1,7 @@
 <template>
     <div class="space-y-1 text-sm rounded-md ring-[1px] ring-red-900 shadow-md shadow-black hover:shadow-sm bg-[#121212]  max-w-[350px] m-auto">
         <div class="rounded-md rounded-b-none">
-            <img class="relative bg-black rounded-md rounded-b-none"  :src="'/' + img + '.jpg'" alt="">
+            <img class="relative bg-black rounded-md rounded-b-none"  :src="'/' + img + '.jpg'">
         </div>
         <div class="flex items-center justify-between p-1 px-3">
             <div class="font-bold text-[10px] text-red-800 uppercase sm:text-xs text-shadow">{{ title }}</div>
