@@ -4,4 +4,5 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
   spaLoadingTemplate: './loader.html',
+  compatibilityDate: '2024-09-05',
 })

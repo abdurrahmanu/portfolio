@@ -6,7 +6,8 @@
         </h1>
         
         <p :style="{'borderLeft' : `5px solid ${sectionStyles[currentSection]['borderBg']}`}" class="relative pl-2 text-sm my-md:leading-7 exo text-zinc-500 sm:leading-6">I'm a frontend web developer with expertise in JavaScript, NuxtJs, VueJs, TailwindCSS, Git & GitHub, NodeJs and Firebase. Passionate about crafting captivating user experience and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. <span @click="reachOut" :style="{'color' : sectionStyles[currentSection]['contactMe']}" class="hover:underline">Contact me</span>, let's build something amazing together!</p>
-        <div class="border-b border-b-neutral-800 my-md:hidden my-md:bg-red-500">
+        
+        <div  ref="scrollerEl" class="relative border-b border-b-neutral-800 my-md:opacity-0">
             <div class="h-[2px] bg-neutral-400 rotate-[180deg]">
                 <div :style="{'width' : scrollPercent + '%', 'background' : currentSectionStyle['scrollRange']}" class="h-[2px] after:absolute after:p-[1px] after:shadow-lg after:right-0 relative"></div>
             </div>
@@ -15,7 +16,8 @@
 </template>
 
 <script setup>
-const scrollbar = useScrollBar()
+const scrollerEl = ref(null)
+const scrollbar = scrollStore()
 const {scrollPercent} = storeToRefs(scrollbar)
 
 const main = mainStore()

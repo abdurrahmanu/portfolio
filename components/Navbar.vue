@@ -36,9 +36,9 @@ const menuElement = ref(null)
 const navigations = ['about', 'skills', 'projects', 'contact']
 
 const main = mainStore()
-const {currentSection, currentSectionStyle, tempNav} = storeToRefs(main)
+const {currentSection, currentSectionStyle, paddingBottom, contactEl} = storeToRefs(main)
 
-const scrollbar = useScrollBar()
+const scrollbar = scrollStore()
 const {scrollPercent} = storeToRefs(scrollbar)
 
 const goToSection = (section) => {
@@ -49,26 +49,19 @@ const goToSection = (section) => {
     currentSection.value = section
 }
 
-watch(scrollPercent, (newVal, oldVal) => {
-    if (newVal > 98 && currentSection.value !== 'contact') {
-        currentSection.value = 'contact'
-        tempNav.value = 'contact'
-    }
-
-    if (oldVal > 98 && newVal < oldVal && tempNav.value === 'contact') {
-        tempNav.value = null
-        currentSection.value = 'projects'
-    }
-    
-    if (newVal === 0) currentSection.value === 'about'
-})
+function lastSectionPaddingBottom() {
+    const height = contactEl.value.getBoundingClientRect().height
+    const screenHeight = window.innerHeight
+    paddingBottom.value = screenHeight - height
+}
 
 watch(currentSection, newVal => nav_.value = newVal )
+onMounted(() => lastSectionPaddingBottom())
+window.addEventListener('resize', event => lastSectionPaddingBottom())
 </script>
 
 <style scoped>
 .nav {
     @apply w-full sm:sticky max-w-[1228px] m-auto fixed top-0 left-0 px-6 text-[10px] flex justify-around items-center py-6 my-md:min-h-[40px] min-h-[20px] my-md:py-4
 }
-
 </style>

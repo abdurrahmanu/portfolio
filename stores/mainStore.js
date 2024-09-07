@@ -3,7 +3,8 @@ import { ref } from 'vue';
 
 export const mainStore = defineStore('main', () => {
     const currentSection = ref('about');
-    const tempNav = ref(null)
+    const paddingBottom = ref(0)
+    const contactEl = ref(null)
 
     const sectionStyles = ref({
         'about' : {
@@ -52,14 +53,61 @@ export const mainStore = defineStore('main', () => {
         }
     })
 
+    const projects = ref([
+        {
+            title: 'kiBoard',
+            link: 'https://kiboard.netlify.app',
+            code: 'github.com/abdurrahmanu/learn-typing',
+            info: 'A highly customizable typing app. It was made with the intention to improve your typing skills and most importantly your fluidity and speed',
+            img: 'kiboard'
+        },
+        {
+            title: 'Tic Tac Toe',
+            link: 'https://myxando.netlify.app',
+            code: 'github.com/abdurrahmanu/tic-tac-toe',
+            info: 'A simple tic-tac-toe game with nice user experience. I implemented all logic from scratch.',
+            img: 'xando'
+        },
+        {
+            title: 'Xpressway Logistics',
+            link: 'https://xpressway-logistics.web.app',
+            code: 'github.com/abdurrahmanu/dorayii.git',
+            info: 'This is a mock transport logistics company website.',
+            img: 'xpressway'
+        },
+        {
+            title: 'Airbnb Homepage',
+            link: 'https://air-bnb-homepage.netlify.app',
+            code: 'github.com/abdurrahmanu/airbnb',
+            info: 'Tried recreating airbnb homepage.',
+            img: 'airbnb'
+        },
+        {
+            title: 'Loyalty Management Landing page',
+            link: 'https://loyalty-mgt.netlify.app',
+            code: 'github.com/abdurrahmanu/loyalty-management',
+            info: 'A very beautiful UI, I did this as an internship task.',
+            img: 'loyalty-mgt'
+        },
+        // {
+        //     title: 'Dictionary',
+        //     link: 'http://qamus.netlify.app',
+        //     code: 'github.com/abdurrahmanu/qamus',
+        //     info: 'This dictionary fetches real time data from an external API.',
+        //     img: 'dictionary'
+        // },
+    ])
+
     const currentSectionStyle = computed(() => {
         return sectionStyles.value[currentSection.value]
     })
 
     return {
-        tempNav,
+        projects,
+        contactEl,
         sectionStyles,
         currentSection,
+        paddingBottom,
         currentSectionStyle
     }
 })

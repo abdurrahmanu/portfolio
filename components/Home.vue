@@ -1,7 +1,7 @@
 <template>
     <div class="px-5 sm:px-10 lg:px-24 bg-[#121212] pb-[40px] mx-auto w-fit text-slate-400 home">
         <Navbar />
-        <div class=" flex gap-[5.1%] max-w-[1230px] px-4 my-md:px-3 m-auto my-md:flex-col my-md:space-y-3">
+        <div class=" flex gap-[5.1%] max-w-[1230px] px-4 my-md:px-3 mx-auto my-md:flex-col my-md:space-y-3">
             <FixedSection />
             <RightSection />
         </div>
@@ -19,10 +19,9 @@ onMounted(() => {
     observer.value = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                if (entry.target.id === '') currentSection.value = 'contact'
-                else currentSection.value = entry.target.id
+                if (entry.target.id) currentSection.value = entry.target.id
             }
-        });
+        })
     }, { root: null, rootMargin: '0px 0px -100% 0px'}
 )
 
