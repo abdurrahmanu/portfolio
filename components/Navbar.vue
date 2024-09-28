@@ -36,10 +36,7 @@ const menuElement = ref(null)
 const navigations = ['about', 'skills', 'projects', 'contact']
 
 const main = mainStore()
-const {currentSection, currentSectionStyle, paddingBottom, contactEl} = storeToRefs(main)
-
-const scrollbar = scrollStore()
-const {scrollPercent} = storeToRefs(scrollbar)
+const {currentSection, currentSectionStyle} = storeToRefs(main)
 
 const goToSection = (section) => {
     if (currentSection.value === section) return
@@ -49,15 +46,7 @@ const goToSection = (section) => {
     currentSection.value = section
 }
 
-function lastSectionPaddingBottom() {
-    const height = contactEl.value.getBoundingClientRect().height
-    const screenHeight = window.innerHeight
-    paddingBottom.value = screenHeight - height
-}
-
 watch(currentSection, newVal => nav_.value = newVal )
-onMounted(() => lastSectionPaddingBottom())
-window.addEventListener('resize', event => lastSectionPaddingBottom())
 </script>
 
 <style scoped>
