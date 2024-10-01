@@ -3,7 +3,6 @@ import { ref } from 'vue';
 
 export const mainStore = defineStore('main', () => {
     const currentSection = ref('about');
-    const paddingBottom = ref(0)
     const contactEl = ref(null)
 
     const sectionStyles = ref({
@@ -107,7 +106,6 @@ export const mainStore = defineStore('main', () => {
         contactEl,
         sectionStyles,
         currentSection,
-        paddingBottom,
         currentSectionStyle
     }
 })

@@ -4,8 +4,8 @@
     <div class="animate-pulse border-transparent fixed w-[1px] top-0 bottom-0 left-0 h-[100vh] border-l-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
     <div class="animate-pulse border-transparent fixed h-[1px] bottom-0 left-0 right-0 w-[100vw] border-b-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
     <div class="animate-pulse border-transparent fixed h-[1px] top-0 left-0 right-0 w-[100vw] border-t-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
-    <div :style="{'width' : scrollPercent + '%', 'background' : currentSectionStyle['scrollRange']}" class="h-[4px] fixed top-0 z-[9999999] max-w-[1230px] left-[50%] translate-x-[-50%]"></div>
   </div>
+  <div :style="{'width' : scrollPercent + '%', 'background' : currentSectionStyle['scrollRange']}" class="h-[4px] fixed top-0 z-[999999] max-w-[1230px] left-[50%] translate-x-[-50%]"></div>
   <div class="bg-[#121212] overflow-x-clip">
     <Home />
   </div>
@@ -13,7 +13,7 @@
 
 <script setup>
 const main = mainStore()
-const {currentSection, currentSectionStyle, paddingBottom, contactEl} = storeToRefs(main)
+const {currentSection, currentSectionStyle, contactEl} = storeToRefs(main)
 
 const scrollbar = scrollStore()
 const {scrollPercent} = storeToRefs(scrollbar)
@@ -21,7 +21,7 @@ const {scrollPercent} = storeToRefs(scrollbar)
 function lastSectionPaddingBottom() {
     const height = contactEl.value.getBoundingClientRect().height
     const screenHeight = window.innerHeight
-    paddingBottom.value = screenHeight - height
+    contactEl.value.style.paddingBottom = (screenHeight - height) + 'px'
 }
 
 window.addEventListener('resize', event => {
@@ -31,32 +31,7 @@ window.addEventListener('resize', event => {
   lastSectionPaddingBottom()
 })
 
-
 onMounted(() => lastSectionPaddingBottom())
-
-// const track = computed(() => {
-//     return currentSection.value === 'about' ?
-//         'green' : currentSection.value === 'skills' ?
-//             'yellow' : currentSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
-
-// const thumb = computed(() => {
-//     return currentSection.value === 'about' ?
-//         'green' : currentSection.value === 'skills' ?
-//             'yellow' : currentSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
-
-// const thumbHover = computed(() => {
-//     return currentSection.value === 'about' ?
-//         'green' : currentSection.value === 'skills' ?
-//             'yellow' : currentSection.value === 'projects' ?
-//                 'red' : 
-//                     'blue'
-// })
 </script>
 
 <style>
