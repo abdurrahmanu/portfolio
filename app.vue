@@ -25,9 +25,9 @@ function lastSectionPaddingBottom() {
 }
 
 window.addEventListener('resize', event => {
-  if (currentSection.value === 'about')  window.scrollTo(0, 0)
-  else if (currentSection.value === 'contact') window.scrollTo(0, document.body.scrollHeight)
-  else document.getElementById(currentSection.value).scrollIntoView()
+  // if (currentSection.value === 'about')  window.scrollTo(0, 0)
+  // else if (currentSection.value === 'contact') window.scrollTo(0, document.body.scrollHeight)
+  // else document.getElementById(currentSection.value).scrollIntoView()
   lastSectionPaddingBottom()
 })
 

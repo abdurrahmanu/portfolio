@@ -22,9 +22,12 @@ onMounted(() => {
                 if (entry.target.id) currentSection.value = entry.target.id
             }
         })
-    }, { root: null, rootMargin: '0px 0px -100% 0px'}
-)
-
+        }, 
+        { 
+            root: null, 
+            rootMargin: '0px 0px -100% 0px'
+        }
+    )
     document.querySelectorAll('.intersect').forEach((section) => observer.value.observe(section))
 })
 
