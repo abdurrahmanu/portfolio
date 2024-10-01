@@ -21,7 +21,7 @@ const {scrollPercent} = storeToRefs(scrollbar)
 function lastSectionPaddingBottom() {
     const height = contactEl.value.getBoundingClientRect().height
     const screenHeight = window.innerHeight
-    contactEl.value.style.paddingBottom = (screenHeight - height) + 'px'
+    contactEl.value.style.paddingBottom = (screenHeight - height) + 20 + 'px'
 }
 
 window.addEventListener('resize', event => {
