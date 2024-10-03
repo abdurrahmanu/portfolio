@@ -1,5 +1,5 @@
 <template>
-        <div ref="contactEl" id="contact" class="text-sm z-[3] space-y-3 intersect bg-inherit px-3" :class="[isMobileOS ? 'pt-28' : 'pt-20', currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
+        <div ref="contactEl" id="contact" class="text-sm z-[3] space-y-3 intersect bg-inherit px-3 pt-28" :class="[currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
             <div class="bg-neutral-700 z-[999]">
                 <form @submit.prevent class="grid gap-6 z-[3]">
                     <div class="grid gap-1 text-sm z-[9999]">
