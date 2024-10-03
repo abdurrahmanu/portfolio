@@ -5,7 +5,7 @@
             <p>Ahmed Abdulrahman</p>
         </h1>
         
-        <p :style="{'borderLeft' : `5px solid ${sectionStyles[currentSection]['borderBg']}`}" class="relative pl-2 text-sm my-md:leading-7 exo text-zinc-500 sm:leading-6">I'm a frontend web developer with expertise in JavaScript, NuxtJs, VueJs, TailwindCSS, Git & GitHub, NodeJs and Firebase. Passionate about crafting captivating user experience and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. <span @click="reachOut" :style="{'color' : sectionStyles[currentSection]['contactMe']}" class="hover:underline">Contact me</span>, let's build something amazing together!</p>
+        <p :style="{'borderLeft' : `5px solid ${sectionStyles[currentSection]['borderBg']}`}" class="relative pl-2 text-sm my-md:leading-7 exo text-zinc-300 sm:leading-6">I'm a frontend web developer with expertise in JavaScript, NuxtJs, VueJs, TailwindCSS, Git & GitHub, NodeJs and Firebase. Passionate about crafting captivating user experience and turning designs into interactive realities. Dedicated to continuous learning and pushing the boundaries of web development. <span @click="reachOut" :style="{'color' : sectionStyles[currentSection]['contactMe']}" class="hover:underline">Contact me</span>, let's build something amazing together!</p>
         
         <div  ref="scrollerEl" class="relative border-b border-b-neutral-800 my-md:opacity-0">
             <div class="h-[2px] bg-neutral-400 rotate-[180deg]">

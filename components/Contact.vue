@@ -1,6 +1,6 @@
 <template>
-        <div ref="contactEl" id="contact" class="text-sm z-[3] space-y-3 intersect bg-inherit px-3 pt-28" :class="[currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
-            <div class="bg-[#121212] z-[999]">
+        <div ref="contactEl" id="contact" class="text-sm z-[3] space-y-3 intersect bg-inherit px-3" :class="[isMobileOS ? 'pt-28' : 'pt-20', currentSection !== 'contact' && scrollPercent !== 100 ? 'opacity-5 blur-[2px]' : '', currentSection === 'projects' && scrollPercent === 10 ? 'opacity-100 blur-0' : '']">
+            <div class="bg-neutral-700 z-[999]">
                 <form @submit.prevent class="grid gap-6 z-[3]">
                     <div class="grid gap-1 text-sm z-[9999]">
                         <label class="text-blue-300 opacity-50" for="name">{{ input.label }}</label>
@@ -13,7 +13,7 @@
                     </div>
                     <div class="grid gap-1 z-[3]">
                         <label for="message" class="text-blue-300 opacity-50">Enter message</label>
-                        <textarea v-model="message" class="text-input ring-[1px]  placeholder:text-neutral-600 ring-blue-900" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
+                        <textarea v-model="message" class="text-input" name="" placeholder="Type your message" id="message" cols="30" rows="10"></textarea>
                     </div>
                     <div class="pt-3 text-center z-[3]">
                         <button @click.prevent="handleSubmit" class="form-button">SEND</button>
@@ -57,10 +57,10 @@ const handleSubmit = () => {
     }
     
     .text-input {
-        @apply h-[170px] py-2 text-[hsla(0,0%,100%,0)] rounded-md px-4 w-full outline-none text-neutral-700 bg-transparent
+        @apply h-[170px] py-2 rounded-md px-2 w-full outline-none text-blue-300 ring-[1px] bg-neutral-700 ring-blue-900 placeholder:text-neutral-500
     }
 
     .base-input {
-        @apply outline-none py-1 rounded-[3px] w-full px-2 bg-transparent ring-[1px] ring-blue-900 placeholder:text-neutral-600
+        @apply outline-none py-1 rounded-[3px] w-full px-2 bg-transparent ring-[1px] ring-blue-900 text-blue-300 placeholder:text-neutral-500
     }
 </style>

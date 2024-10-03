@@ -1,5 +1,5 @@
 <template>
-    <div class="px-5 sm:px-10 lg:px-24 bg-[#121212] pb-[40px] mx-auto w-fit text-slate-400 home selection:bg-transparent exo">
+    <div class="px-5 sm:px-10 lg:px-24 bg-neutral-700 pb-[40px] mx-auto w-fit text-slate-400 home selection:bg-transparent exo">
         <Navbar />
         <div class=" flex gap-[5.1%] my-md:gap-0 max-w-[1230px] px-4 my-md:px-3 mx-auto my-md:flex-col">
             <FixedSection />

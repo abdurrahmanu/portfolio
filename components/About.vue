@@ -3,7 +3,7 @@
         <div class="relative h-full ring-[1px] rounded-md ring-green-700" :class="[currentSection !== 'about' ? 'opacity-5 blur-[2px]' : '']">
             <div class="flex bg-[#121212] rounded-md min-h-[260px]">            
                 <img loading="lazy" id="first" @click="current = 'first'" :class="[current === 'first' ? 'z-[3]' : 'bottom-0 z-[2] opacity-[.3]']" class="image border-r-[1px] border-r-black left-0" src="/programmer.svg">
-                <img loading="lazy" id="second" ref="secondImage" @click="current = 'second'" :class="[current === 'second' ? 'z-[3]' : 'z-[2] opacity-[0.1]']" class="image border-l-[1px] border-l-black absolute right-0 bottom-0 top-0 h-[100%]" src="/me.jpg">
+                <img loading="lazy" id="second" ref="secondImage" @click="current = 'second'" :class="[current === 'second' ? 'z-[3] opacity-[0.8]' : 'z-[2] opacity-[0.3]']" class="image border-l-[1px] border-l-black absolute right-0 bottom-0 top-0 h-[100%]" src="/me.jpg">
             </div>
         </div>
         <div v-if="currentSection === 'about'" class="flex justify-center gap-2">
