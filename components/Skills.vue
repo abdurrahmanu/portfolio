@@ -1,5 +1,5 @@
 <template>
-    <div :class="[currentSection !== 'skills' ? 'opacity-5 blur-[2px]' : '']">
+    <div>
         <div id="skills" class="flex flex-col gap-[20px] intersect pt-[100px] mb-10">
             <Skill 
             v-for="(skill, index) in skillSet"

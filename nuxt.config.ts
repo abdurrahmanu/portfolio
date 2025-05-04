@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', 'motion-v/nuxt'],
   spaLoadingTemplate: './loader.html',
   compatibilityDate: '2024-09-05',
 })

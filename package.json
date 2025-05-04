@@ -17,6 +17,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "dotenv": "^16.3.1",
+    "motion-v": "^1.0.1",
     "pinia": "^2.1.7"
   },
   "overrides": {

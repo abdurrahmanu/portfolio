@@ -1,39 +1,10 @@
 <template>
-  <div class="fixed w-0 h-0">
-    <div class="animate-pulse border-transparent fixed top-0 bottom-0 h-[100vh] border-r-[1px] z-[9999999] right-0 w-[1px]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
-    <div class="animate-pulse border-transparent fixed w-[1px] top-0 bottom-0 left-0 h-[100vh] border-l-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
-    <div class="animate-pulse border-transparent fixed h-[1px] bottom-0 left-0 right-0 w-[100vw] border-b-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
-    <div class="animate-pulse border-transparent fixed h-[1px] top-0 left-0 right-0 w-[100vw] border-t-[1px] z-[9999999]" :style="{'boxShadow' : currentSectionStyle['box']}"></div>
-  </div>
-  <div :style="{'width' : scrollPercent + '%', 'background' : currentSectionStyle['scrollRange']}" class="h-[4px] fixed top-0 z-[999999] max-w-[1230px] left-[50%] translate-x-[-50%]"></div>
-  <div class="bg-[#121212] overflow-x-clip">
-    <Home />
+  <div class="bg-[#faf9f6] max-w-[2000px] mx-auto min-h-screen">
+    <NuxtPage />
   </div>
 </template>
 
 <script setup>
-const main = mainStore()
-const {currentSection, currentSectionStyle, contactEl} = storeToRefs(main)
-
-const scrollbar = scrollStore()
-const {scrollPercent} = storeToRefs(scrollbar)
-
-function lastSectionPaddingBottom() {
-    const height = contactEl.value.getBoundingClientRect().height
-    const screenHeight = window.innerHeight
-    contactEl.value.style.paddingBottom = (screenHeight - height) + 20 + 'px'
-}
-
-window.addEventListener('resize', event => {
-  if (!isMobileOS()) {
-    if (currentSection.value === 'about')  window.scrollTo(0, 0)
-    else if (currentSection.value === 'contact') window.scrollTo(0, document.body.scrollHeight)
-    else document.getElementById(currentSection.value).scrollIntoView()
-  lastSectionPaddingBottom()
-  }
-})
-
-onMounted(() => lastSectionPaddingBottom())
 </script>
 
 <style>
