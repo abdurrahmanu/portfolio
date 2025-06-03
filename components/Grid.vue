@@ -16,7 +16,7 @@
                 inSubGrid(grid[i].row, grid[i].col) ?
                 'subgrid' :
                 historyGames.map(game => game.grid).flat(Infinity).filter(cell => cell.row === grid[i].row && 
-                cell.col === grid[i].col).length ?
+                cell.col === grid[i].col).length && playGame ?
                 'history-subgrid' : 
                 !playGame && !(showSkills || showProjects) && grid[i].row !== 0 ?
                 'not-subgrid' : '', 
@@ -29,26 +29,23 @@
                 cell.col === grid[i].col).length) ?
                 'win-cell' :
                 '',
-                subGridIndex(grid[i].row, grid[i].col) === 0 ? 
-                'border-t-[3px] border-t-blue-500 border-l-[3px] border-l-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 1 ? 
-                'border-t-[3px] border-t-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 2 ? 
-                'border-t-[3px] border-t-blue-500 border-r-[3px] border-r-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 3 ? 
-                'border-l-[3px] border-l-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 5 ? 
-                'border-r-[3px] border-r-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 6 ? 
-                'border-b-[3px] border-b-blue-500 border-l-[3px] border-l-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 7 ? 
-                'border-b-[3px] border-b-blue-500' :
-                subGridIndex(grid[i].row, grid[i].col) === 8 ? 
-                'border-b-[3px] border-b-blue-500 border-r-[3px] border-r-blue-500' :
+                historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame ? 
+                'border-t-[3px] border-t-blue-600 border-l-[3px] border-l-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 1 && playGame ? 
+                'border-t-[3px] border-t-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 2 && playGame ? 
+                'border-t-[3px] border-t-blue-600 border-r-[3px] border-r-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 3 && playGame ? 
+                'border-l-[3px] border-l-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 5 && playGame ? 
+                'border-r-[3px] border-r-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 6 && playGame ? 
+                'border-b-[3px] border-b-blue-600 border-l-[3px] border-l-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 7 && playGame ? 
+                'border-b-[3px] border-b-blue-600' :
+                historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame ? 
+                'border-b-[3px] border-b-blue-600 border-r-[3px] border-r-blue-600' :
                 '',
-                subGridIndex(grid[i].row, grid[i].col) === 8 ? 
-                'after:absolute after:right-0 after:bottom-0 after:w-0 after:h-0 after:border-t-[20px] after:border-r-[20px] after:border-t-transparent after:border-r-blue-500 after:border-b-[20px] after:border-l-[20px] after:border-b-blue-500 after:border-l-transparent hover:after:border-b-green-500 hover:after:border-r-green-500' :
-                ''
              ]"
             @click="(playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? createGameGrid(grid[i], grid_[0].length, grid_.length, grid_) : gameGrid.length && !gameEnd && inSubGrid(grid[i].row, grid[i].col) ? play(grid[i].row, grid[i].col, gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value) : ''" 
             >
@@ -73,10 +70,13 @@
              :style="!playGame ? spanLines[i] : ''"></span>
              
              <span 
-             class="animate-pulse absolute inline-block"
+             class="absolute inline-block"
              :class="[inSubGrid(grid[i].row, grid[i].col) ? 'w-10 h-32 bg-red-300' : '']"
              v-if="showSkills || showProjects || inSubGrid(grid[i].row, grid[i].col)" 
              :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i].row, grid[i].col)] : ''"></span>
+
+             <img class="absolute w-5 h-5 bottom-3 right-3" v-if="historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame " src="/delete.svg" alt="">
+             <img class="absolute w-5 h-5 top-3 left-3" v-if="historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame" src="/restart.svg" alt="">
         </div>  
     </div>
 </template>
@@ -87,7 +87,7 @@ const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const gamestore = gameStore()
 const {playGame, gameGrid, winningCells, historyGames, gameEnd} = storeToRefs(gamestore)
-const {createGameGrid, inSubGrid, play, cellValue, subGridIndex} = gamestore
+const {createGameGrid, inSubGrid, play, cellValue, subGridIndex, historyGridIndex} = gamestore
 
 let color = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1']
 const boxesContainer = ref(null)
@@ -102,6 +102,7 @@ const style = ref({})
 const spanLines = ref([])
 const spanStars = ref([])
 const grid_ = ref([])
+const pageAnimation = ref(false)
 
 function resizerFunction () {
     squareLength.value = 50
@@ -191,11 +192,12 @@ watch(() => boxesContainer.value, (newValue, oldValue) => {
     if (newValue instanceof HTMLElement) resizerFunction()
 })
 
-watch(gameGrid, newVal => {
+watch(gameGrid, (newVal, oldVal) => {
     for (let index = 0; index < 9; index++) {
         spanStyles(index, true)
     }
-}, { deep: true })
+}, { deep: 1 })
+
 
 watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
     if (newShowSkills || newShowProjects) {
@@ -204,8 +206,11 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
             'position': 'relative',
         }
 
-        for (let i = 0; i < grid.value.length; i++) {
-            spanStyles(i)
+        if (!pageAnimation.value) {
+            pageAnimation.value = true
+            for (let i = 0; i < grid.value.length; i++) {
+                spanStyles(i)
+            }
         }
     }
 
@@ -221,7 +226,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 
 <style>
 .boxes-container {
-    @apply fixed w-full left-0 top-0 flex flex-wrap text-slate-200 text-3xl
+    @apply fixed w-full left-0 top-0 flex flex-wrap text-slate-200 text-5xl
 }
 
 .container-bg {
@@ -248,7 +253,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .history-subgrid {
-    @apply bg-black hover:bg-black ring-red-300
+    @apply bg-black hover:bg-black
 }
 
 .not-subgrid {
@@ -300,6 +305,18 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
         background: linear-gradient(135deg, #170339, #011b2a, #000000,  #1e1d1d, #5e0da0, #171616,);
         box-shadow: 0px 4px 6px rgba(124, 58, 237, 0.5);
     }
+}
+
+/* .delete-icon::after {
+    content: url("<svg viewBox='0 0 24 24' fill='red' xmlns='http://www.w3.org/2000/svg'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <path d='M10 12V17' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M14 12V17' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M4 7H20' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> </g></svg>");
+    width: 10px;
+    height: 10px;
+    z-index: 10;
+} */
+
+.restart-icon::after {
+    content: url("<svg fill='#000000' viewBox='-7.5 0 32 32' version='1.1' xmlns='http://www.w3.org/2000/svg'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <title>restart</title> <path d='M15.88 13.84c-1.68-3.48-5.44-5.24-9.040-4.6l0.96-1.8c0.24-0.4 0.080-0.92-0.32-1.12-0.4-0.24-0.92-0.080-1.12 0.32l-1.96 3.64c0 0-0.44 0.72 0.24 1.040l3.64 1.96c0.12 0.080 0.28 0.12 0.4 0.12 0.28 0 0.6-0.16 0.72-0.44 0.24-0.4 0.080-0.92-0.32-1.12l-1.88-1.040c2.84-0.48 5.8 0.96 7.12 3.68 1.6 3.32 0.2 7.32-3.12 8.88-1.6 0.76-3.4 0.88-5.080 0.28s-3.040-1.8-3.8-3.4c-0.76-1.6-0.88-3.4-0.28-5.080 0.16-0.44-0.080-0.92-0.52-1.080-0.4-0.080-0.88 0.16-1.040 0.6-0.72 2.12-0.6 4.36 0.36 6.36s2.64 3.52 4.76 4.28c0.92 0.32 1.84 0.48 2.76 0.48 1.24 0 2.48-0.28 3.6-0.84 4.16-2 5.92-7 3.92-11.12z'></path> </g></svg>");
+    z-index: 10;
 }
 
 </style>

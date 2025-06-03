@@ -1,9 +1,15 @@
 <template>
-    <div class="p-2 px-4">
-        <div @mouseover="openNav = !openNav" @mouseleave="openNav = !openNav" @click="openNav = true" class="relative flex gap-6 text-white w-full caveat justify-center uppercase cursor-pointer text-xs">
-            <div class="flex gap-1">
-                <div @click="playGame = !playGame" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 text-base font-light w-fit rounded-md ring-[2px]">
+    <div class="p-3 px-4">
+        <div @mouseover="openNav = !openNav" @mouseleave="openNav = !openNav" @click="openNav = true" class="relative flex gap-6 text-white w-full text-base caveat justify-center uppercase cursor-pointer text-sm">
+            <div class="flex gap-3">
+                <div v-if="playGame" @click="clearAll()" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
+                    <p>Clear all</p>
+                </div>
+                <div @click="playGame = !playGame" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
                     <p>{{ !playGame ? 'Play TIC-TAC-TOE' : 'Back' }}</p>
+                </div>
+                <div v-if="(showSkills || showProjects) && !playGame" @click="" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
+                    <p>Back</p>
                 </div>
             </div>
         </div>
@@ -13,6 +19,10 @@
 <script setup>
 const gamestore = gameStore()
 const {playGame, startGame, gameGrid, gameEnd} = storeToRefs(gamestore)
+const {clearAll} = gamestore
+
+const mainstore = mainStore()
+const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const openNav = ref(false)
 </script>

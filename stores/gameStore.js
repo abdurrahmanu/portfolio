@@ -95,6 +95,25 @@ export const gameStore = defineStore('gameStore', () => {
     return ''
   }
 
+  const historyGridIndex = (row, col) => {
+    if (historyGames.value.length) {
+      let grid = historyGames.value.map(game => game.grid)
+      for (let i = 0; i < grid.length; i++) {
+        let currentGrid = grid[i].flat(Infinity)
+        for (let j = 0; j < currentGrid.length; j++) {
+          if (currentGrid[j].row === row && currentGrid[j].col === col) {
+            return j
+          }
+        }
+      }
+    }
+  }
+
+  const clearAll = () => {
+    historyGames.value = []
+    clearPreviousGame()
+  }
+
   const cellValue = (row, col) => {
     const val = ref()
     gameGrid.value.map((r, i) => {
@@ -178,9 +197,11 @@ export const gameStore = defineStore('gameStore', () => {
     gameEnd,
     winningCells,
     historyGames,
+    clearAll,
     cellValue,
     createGameGrid,
     inSubGrid,
+    historyGridIndex,
     subGridIndex,
     play,
   }
