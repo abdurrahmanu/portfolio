@@ -8,7 +8,7 @@
                 <div @click="playGame = !playGame" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
                     <p>{{ !playGame ? 'Play TIC-TAC-TOE' : 'Back' }}</p>
                 </div>
-                <div v-if="(showSkills || showProjects) && !playGame" @click="" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
+                <div v-if="(showSkills || showProjects) && !playGame" @click="home()" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 font-light w-fit rounded-md ring-[2px]">
                     <p>Back</p>
                 </div>
             </div>
@@ -25,6 +25,12 @@ const mainstore = mainStore()
 const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const openNav = ref(false)
+
+const home = () => {
+    // playGame.value = false
+    // showSkills.value = false
+    // showProjects.value = false
+}
 </script>
 
 <style scoped>

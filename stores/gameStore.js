@@ -114,6 +114,7 @@ export const gameStore = defineStore('gameStore', () => {
     clearPreviousGame()
   }
 
+
   const cellValue = (row, col) => {
     const val = ref()
     gameGrid.value.map((r, i) => {
@@ -189,6 +190,16 @@ export const gameStore = defineStore('gameStore', () => {
     plays.value = {'x': [], 'o': []}
   }
 
+  const restartGrid = (row, col) => {
+    // empty grid to reuse --- remove from history and use as gameGrid
+    // make sure there is no empty grid or ongoing game before carrying out
+  }
+
+  const deleteGrid = (row, col) => {
+    // delete grid --- remove from history
+    // can carry out anytime
+  }
+
   return {
     startGame,
     playGame,
@@ -204,5 +215,7 @@ export const gameStore = defineStore('gameStore', () => {
     historyGridIndex,
     subGridIndex,
     play,
+    restartGrid,
+    deleteGrid,
   }
 })

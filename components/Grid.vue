@@ -75,8 +75,9 @@
              v-if="showSkills || showProjects || inSubGrid(grid[i].row, grid[i].col)" 
              :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i].row, grid[i].col)] : ''"></span>
 
-             <img class="absolute w-5 h-5 bottom-3 right-3" v-if="historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame " src="/delete.svg" alt="">
-             <img class="absolute w-5 h-5 top-3 left-3" v-if="historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame" src="/restart.svg" alt="">
+             <Delete @click="deleteGrid(grid[i].row, grid[i].col)" class="absolute w-5 h-5 top-[1px] left-[1px] hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame" />
+
+             <Restart @click="restartGrid(grid[i].row, grid[i].col)" class="absolute w-7 h-7 bottom-0 right-0 hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame " />
         </div>  
     </div>
 </template>
@@ -87,7 +88,7 @@ const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const gamestore = gameStore()
 const {playGame, gameGrid, winningCells, historyGames, gameEnd} = storeToRefs(gamestore)
-const {createGameGrid, inSubGrid, play, cellValue, subGridIndex, historyGridIndex} = gamestore
+const {createGameGrid, deleteGrid, restartGrid, inSubGrid, play, cellValue, subGridIndex, historyGridIndex} = gamestore
 
 let color = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1']
 const boxesContainer = ref(null)
@@ -245,7 +246,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .cell {
-    @apply w-fit h-fit flex grid font-bold items-center justify-center ring-[1px]
+    @apply w-fit h-fit flex grid font-bold items-center justify-center ring-[1px] cursor-pointer
 }
 
 .subgrid {
@@ -265,7 +266,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .win-cell {
-    @apply bg-blue-800 hover:bg-blue-800 text-green-500
+    @apply text-green-500
 }
 
 .ripple {
@@ -306,17 +307,4 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
         box-shadow: 0px 4px 6px rgba(124, 58, 237, 0.5);
     }
 }
-
-/* .delete-icon::after {
-    content: url("<svg viewBox='0 0 24 24' fill='red' xmlns='http://www.w3.org/2000/svg'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <path d='M10 12V17' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M14 12V17' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M4 7H20' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> <path d='M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'></path> </g></svg>");
-    width: 10px;
-    height: 10px;
-    z-index: 10;
-} */
-
-.restart-icon::after {
-    content: url("<svg fill='#000000' viewBox='-7.5 0 32 32' version='1.1' xmlns='http://www.w3.org/2000/svg'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <title>restart</title> <path d='M15.88 13.84c-1.68-3.48-5.44-5.24-9.040-4.6l0.96-1.8c0.24-0.4 0.080-0.92-0.32-1.12-0.4-0.24-0.92-0.080-1.12 0.32l-1.96 3.64c0 0-0.44 0.72 0.24 1.040l3.64 1.96c0.12 0.080 0.28 0.12 0.4 0.12 0.28 0 0.6-0.16 0.72-0.44 0.24-0.4 0.080-0.92-0.32-1.12l-1.88-1.040c2.84-0.48 5.8 0.96 7.12 3.68 1.6 3.32 0.2 7.32-3.12 8.88-1.6 0.76-3.4 0.88-5.080 0.28s-3.040-1.8-3.8-3.4c-0.76-1.6-0.88-3.4-0.28-5.080 0.16-0.44-0.080-0.92-0.52-1.080-0.4-0.080-0.88 0.16-1.040 0.6-0.72 2.12-0.6 4.36 0.36 6.36s2.64 3.52 4.76 4.28c0.92 0.32 1.84 0.48 2.76 0.48 1.24 0 2.48-0.28 3.6-0.84 4.16-2 5.92-7 3.92-11.12z'></path> </g></svg>");
-    z-index: 10;
-}
-
 </style>
