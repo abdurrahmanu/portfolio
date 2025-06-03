@@ -16,10 +16,9 @@ export const gameStore = defineStore('gameStore', () => {
     'o': []
   })
 
-  const createGameGrid = (startCell) => {
+  const createGameGrid = (startCell, totalCols, totalRows, grid) => {
     // check if all cells have not been used
     let usedCells = historyGames.value.map(game => game.grid).flat(Infinity)
-
     if (gameEnd.value) {
       clearPreviousGame()
       gameEnd.value = false
@@ -33,8 +32,8 @@ export const gameStore = defineStore('gameStore', () => {
       gameGrid.value.push([])
       for (let j = col; j < col + 3; j++) {
         let nonEmpty = usedCells.filter(cell => cell.row === i && cell.col === j)
-        if (nonEmpty.length) {
-
+        let cellExists = j < totalCols && i < totalRows
+        if (nonEmpty.length || !cellExists) {
           gameGrid.value = []
           return
         }
@@ -76,10 +75,24 @@ export const gameStore = defineStore('gameStore', () => {
 
   const inSubGrid = (row, col) => {
     if (playGame.value && gameGrid.value.length) {
-      let flattendGrid = gameGrid.value.flat()
-      let bool = flattendGrid.find(el => el.row === row && el.col === col)
+      let flattenedGrid = gameGrid.value.flat()
+      let bool = flattenedGrid.find(el => el.row === row && el.col === col)
       return bool
     }
+  }
+
+  const subGridIndex = (row, col) => {
+    if (playGame.value && gameGrid.value.length) {
+      let flattenedGrid = gameGrid.value.flat(2).map(val => [val.row, val.col])
+
+      for (let index = 0; index < flattenedGrid.length; index++) {
+        if (flattenedGrid[index][0] === row && flattenedGrid[index][1] === col) {
+          return index
+        }
+      }
+    }
+
+    return ''
   }
 
   const cellValue = (row, col) => {
@@ -168,6 +181,7 @@ export const gameStore = defineStore('gameStore', () => {
     cellValue,
     createGameGrid,
     inSubGrid,
+    subGridIndex,
     play,
   }
 })

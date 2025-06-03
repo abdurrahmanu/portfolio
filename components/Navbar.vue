@@ -2,9 +2,8 @@
     <div class="p-2 px-4">
         <div @mouseover="openNav = !openNav" @mouseleave="openNav = !openNav" @click="openNav = true" class="relative flex gap-6 text-white w-full caveat justify-center uppercase cursor-pointer text-xs">
             <div class="flex gap-1">
-                <div @click="playGame = !playGame" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 text-lg w-fit rounded-md ring-[2px]">
-                    <p>{{ !playGame ? 'Play TIC-TAC-TOE' : 'Out of Game' }}</p>
-                    <!-- <p v-if="(playGame && !gameGrid.length) || gameEnd" class="bg-green-700 py-1 text-white absolute top-[125%] right-[3px] px-4 w-fit min-w-[300px] max-w-[200px] rounded-r-2xl shadow shadow-gray-400">Click on empty cells to create a game grid</p> -->
+                <div @click="playGame = !playGame" :class="[playGame ? 'text-white' : '']" class="px-5 hover:text-black hover:bg-white transition-all duration-[.5s] relative h-fit py-1 text-base font-light w-fit rounded-md ring-[2px]">
+                    <p>{{ !playGame ? 'Play TIC-TAC-TOE' : 'Back' }}</p>
                 </div>
             </div>
         </div>

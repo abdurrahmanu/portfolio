@@ -5,14 +5,14 @@
         <Navbar />
         <div v-if="!playGame" :class="[showSkills || showProjects ? 'mt-10' : 'mt-40']" class="select-none transition-all duration-[.8s] ease-out bg-transparent w-fit m-auto relative">
             <div class="space-y-2">
-                <p class="text-center text-2xl caveat">HELLO, I AM</p>
+                <p class="text-center text-2xl caveat" :class="[showSkills || showProjects ? 'text-white': 'text-black']"><span class="text-green-500">HELL0,</span> I AM</p>
                 <div class="flex text-center justify-center items-center caveat text-3xl">
                     <p :class="[showSkills || showProjects ? 'text-white' : 'text-slate-700']" class="uppercase hover:text-green-500" v-for="(char, index) in name.split('')" :key="index">{{ char === ' ' ? '\u00A0' : char }}</p>
                 </div>
                 <p class="text-lg text-center text-blue-500 exo font-bold">A Frontend Website developer</p>
             </div>
 
-            <div class="flex gap-3 exo items-center justify-center transition-all relative duration-[.2s] ease-out text-white text-xl py-4">
+            <div class="flex gap-3 exo items-center justify-center transition-all relative duration-[.2s] ease-out text-white text-lg py-4">
                  <div @click="showSection('skills')" :class="[showSkills ? 'text-green-400 ring-[2px] ring-green-500' : '']" class="px-8 h-fit hover:text-green-500 w-fit rounded-md py-2 transition-all duration-[.2s] ease-out bg-neutral-900 hover:ring ring-green-500">SKILLS</div>
                  <div @click="showSection('projects')" :class="[showProjects ? 'text-green-400 ring-[2px] ring-green-500' : '']" class="px-6 hover:text-green-500 md:px-10 py-2 transition-all duration-[.2s] ease-out h-fit w-fit rounded-md bg-neutral-900 hover:ring ring-green-500">PROJECTS</div>
                 </div>                

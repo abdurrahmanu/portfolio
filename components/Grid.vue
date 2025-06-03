@@ -13,13 +13,14 @@
                  '',
                 !playGame && !(showSkills || showProjects) ? 'ring-neutral-300' : 'ring-neutral-500',
                 playGame &&
-                (inSubGrid(grid[i].row, grid[i].col) ||         
+                inSubGrid(grid[i].row, grid[i].col) ?
+                'subgrid' :
                 historyGames.map(game => game.grid).flat(Infinity).filter(cell => cell.row === grid[i].row && 
-                cell.col === grid[i].col).length) ?
-                'subgrid' : 
+                cell.col === grid[i].col).length ?
+                'history-subgrid' : 
                 !playGame && !(showSkills || showProjects) && grid[i].row !== 0 ?
                 'not-subgrid' : '', 
-                grid[i].row === 0 && !(showSkills || showProjects) ?
+                grid[i].row === 0 ?
                 'first-row' :
                 '', 
                 playGame &&
@@ -28,10 +29,29 @@
                 cell.col === grid[i].col).length) ?
                 'win-cell' :
                 '',
+                subGridIndex(grid[i].row, grid[i].col) === 0 ? 
+                'border-t-[3px] border-t-blue-500 border-l-[3px] border-l-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 1 ? 
+                'border-t-[3px] border-t-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 2 ? 
+                'border-t-[3px] border-t-blue-500 border-r-[3px] border-r-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 3 ? 
+                'border-l-[3px] border-l-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 5 ? 
+                'border-r-[3px] border-r-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 6 ? 
+                'border-b-[3px] border-b-blue-500 border-l-[3px] border-l-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 7 ? 
+                'border-b-[3px] border-b-blue-500' :
+                subGridIndex(grid[i].row, grid[i].col) === 8 ? 
+                'border-b-[3px] border-b-blue-500 border-r-[3px] border-r-blue-500' :
+                '',
+                subGridIndex(grid[i].row, grid[i].col) === 8 ? 
+                'after:absolute after:right-0 after:bottom-0 after:w-0 after:h-0 after:border-t-[20px] after:border-r-[20px] after:border-t-transparent after:border-r-blue-500 after:border-b-[20px] after:border-l-[20px] after:border-b-blue-500 after:border-l-transparent hover:after:border-b-green-500 hover:after:border-r-green-500' :
+                ''
              ]"
-            @click="(playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? createGameGrid(grid[i]) : gameGrid.length && !gameEnd && inSubGrid(grid[i].row, grid[i].col) ? play(grid[i].row, grid[i].col, gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value) : ''" 
+            @click="(playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? createGameGrid(grid[i], grid_[0].length, grid_.length, grid_) : gameGrid.length && !gameEnd && inSubGrid(grid[i].row, grid[i].col) ? play(grid[i].row, grid[i].col, gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value) : ''" 
             >
-
             {{ playGame &&
                 gameGrid.length && inSubGrid(grid[i].row, grid[i].col) && !gameEnd ?
                 gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value : 
@@ -54,8 +74,9 @@
              
              <span 
              class="animate-pulse absolute inline-block"
-             v-if="showSkills || showProjects" 
-             :style="!playGame ? spanStars[i] : ''"></span>
+             :class="[inSubGrid(grid[i].row, grid[i].col) ? 'w-10 h-32 bg-red-300' : '']"
+             v-if="showSkills || showProjects || inSubGrid(grid[i].row, grid[i].col)" 
+             :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i].row, grid[i].col)] : ''"></span>
         </div>  
     </div>
 </template>
@@ -66,7 +87,7 @@ const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const gamestore = gameStore()
 const {playGame, gameGrid, winningCells, historyGames, gameEnd} = storeToRefs(gamestore)
-const {createGameGrid, inSubGrid, play, cellValue} = gamestore
+const {createGameGrid, inSubGrid, play, cellValue, subGridIndex} = gamestore
 
 let color = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1']
 const boxesContainer = ref(null)
@@ -80,6 +101,7 @@ const grid = ref([])
 const style = ref({})
 const spanLines = ref([])
 const spanStars = ref([])
+const grid_ = ref([])
 
 function resizerFunction () {
     squareLength.value = 50
@@ -109,9 +131,52 @@ function resizerFunction () {
         Array.from({length: +realNumberOfBoxesH}, (_, col) => ({
             row, col, value: null
         }))
-    ).flat()
+    )
+
+    grid_.value = grid.value
+    grid.value = grid.value.flat()
 
     numberOfBoxes.value = realNumberOfBoxesH * realNumberOfBoxesV
+}
+
+function spanStyles (i, subGrid) {
+    let random = Math.random()
+    let starWidth = random * 10
+
+    if (!subGrid) {
+        spanLines.value[i] = {
+            'top': `${Math.floor(Math.random() * 20)}px`,
+            'left': `${Math.floor(Math.random() * 21) - boxWidth.value}px`,
+            'width': `${random > 0.5 ? Math.floor(Math.random() * 80) + 40 : 1}px`,
+            'height': `${random > 0.5 ? 1 : Math.floor(Math.random() * 80) + 40}px`,
+            'opacity': `${Math.random() * 0.5 + 0.5}`,
+            'backgroundColor': `${color[Math.floor(Math.random() * 30)]}`,
+            'animation': `levitate ${Math.random() * 2 + 1}s ease-in-out infinite`,
+        }
+
+        spanStars.value[i] = {
+            'top': `${Math.floor(Math.random() * 21)}px`,
+            'left': `${Math.floor(Math.random() * 21) - 10}px`,
+            'width': `${starWidth}px`,
+            'height': `${starWidth}px`,
+            'opacity': `${Math.random() * 0.5 + 0.5}`,
+            'borderRadius': '50%',
+            'backgroundColor': `${color[Math.floor(Math.random() * color.length)]}`,
+            'animation': `ripple ${Math.random() * 2 + 1}s ease-in-out infinite`,
+        };
+    } else {
+        let starWidth = 5
+        spanStars.value[i] = {
+            'top': `${Math.floor(Math.random() * (squareLength.value - 10))}px`,
+            'left': `${Math.floor(Math.random() * (squareLength.value - 10))}px`,
+            'width': `${starWidth}px`,
+            'height': `${starWidth}px`,
+            'opacity': `${Math.random() * 0.5 + 0.5}`,
+            'borderRadius': '50%',
+            'backgroundColor': `${color[Math.floor(Math.random() * color.length)]}`,
+            'animation': `ripple ${Math.random() * 2 + 1}s ease-in-out infinite`,
+        };
+    }
 }
 
 onMounted(() => {
@@ -126,6 +191,12 @@ watch(() => boxesContainer.value, (newValue, oldValue) => {
     if (newValue instanceof HTMLElement) resizerFunction()
 })
 
+watch(gameGrid, newVal => {
+    for (let index = 0; index < 9; index++) {
+        spanStyles(index, true)
+    }
+}, { deep: true })
+
 watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
     if (newShowSkills || newShowProjects) {
         style.value = {
@@ -134,29 +205,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
         }
 
         for (let i = 0; i < grid.value.length; i++) {
-            let random = Math.random()
-            let starWidth = random * 10
-
-            spanLines.value[i] = {
-                'top': `${Math.floor(Math.random() * 20)}px`,
-                'left': `${Math.floor(Math.random() * 21) - boxWidth.value}px`,
-                'width': `${random > 0.5 ? Math.floor(Math.random() * 80) + 40 : 1}px`,
-                'height': `${random > 0.5 ? 1 : Math.floor(Math.random() * 80) + 40}px`,
-                'opacity': `${Math.random() * 0.5 + 0.5}`,
-                'backgroundColor': `${color[Math.floor(Math.random() * 30)]}`,
-                'animation': `levitate ${Math.random() * 2 + 1}s ease-in-out infinite`,
-            }
-
-            spanStars.value[i] = {
-                'top': `${Math.floor(Math.random() * 21)}px`,
-                'left': `${Math.floor(Math.random() * 21) - 10}px`,
-                'width': `${starWidth}px`,
-                'height': `${starWidth}px`,
-                'opacity': `${Math.random() * 0.5 + 0.5}`,
-                'borderRadius': '50%',
-                'backgroundColor': `${color[Math.floor(Math.random() * color.length)]}`,
-                'animation': `ripple ${Math.random() * 2 + 1}s ease-in-out infinite`,
-            };
+            spanStyles(i)
         }
     }
 
@@ -195,7 +244,11 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .subgrid {
-    @apply bg-teal-900 hover:bg-teal-900 ring-white
+    @apply bg-neutral-900 hover:bg-neutral-900 ring-white
+}
+
+.history-subgrid {
+    @apply bg-black hover:bg-black ring-red-300
 }
 
 .not-subgrid {
@@ -207,7 +260,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .win-cell {
-    @apply bg-green-500 hover:bg-green-500 text-white
+    @apply bg-blue-800 hover:bg-blue-800 text-green-500
 }
 
 .ripple {
