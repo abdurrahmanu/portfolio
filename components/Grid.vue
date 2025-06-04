@@ -78,8 +78,8 @@
              :style="!playGame ? spanLines[i] : ''"></span>
              
              <span 
-             class="absolute inline-block"
-             :class="[inSubGrid(grid[i]) ? 'w-10 h-32 bg-red-300' : '']"
+             class="absolute inline-block text-[11px]"
+             :class="[inSubGrid(grid[i]) ? 'w-10 h-32' : '']"
              v-if="showSkills || showProjects || inSubGrid(grid[i])" 
              :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i])] : ''"></span>
 
@@ -211,7 +211,6 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
     if (newShowSkills || newShowProjects) {
         style.value = {
             ...style.value,
-            'position': 'relative',
         }
 
         if (!pageAnimation.value) {
@@ -225,9 +224,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
     if (!newShowProjects && !newShowSkills) {
         style.value = {
             ...style.value,
-            'position': 'relative',
         }
-        spanLines.value = []
     }
 })
 </script>

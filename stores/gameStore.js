@@ -196,7 +196,9 @@ export const gameStore = defineStore('gameStore', () => {
       startGame.value = false
       saveProgress('Tie game', winningCells.value)
       gameScores.value['tie']++
+      turn.value === 'x' ? turn.value = 'o' : turn.value = 'x'
     }
+
   }
 
   const saveProgress = (verdict, winCells) => {
@@ -205,7 +207,6 @@ export const gameStore = defineStore('gameStore', () => {
       winner: verdict,
       winCells: winCells
     })
-
   }
 
   const clearPreviousGame = () => {

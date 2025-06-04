@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex items-center px-3 pt-4 gap-4 caveat">
+        <div class="flex px-3 pt-4 gap-4 caveat">
             <div @click="move > 0 ? move-- : move = projects.length - 1" class="arrow">&lt;</div>
             <Project
                 :link="projects[currentPage].link"
@@ -34,6 +34,6 @@ const currentPage = computed(() => {
 <style scoped>
 .arrow {
     @apply text-3xl cursor-pointer hover:bg-neutral-900 hover:text-green-500 ring-[1px] p-3 rounded-md
-    text-3xl cursor-pointer hover:bg-neutral-900 hover:text-green-500 ring-[1px] p-3 rounded-md font-bold
+    text-3xl cursor-pointer hover:bg-neutral-900 hover:text-green-500 ring-[1px] p-3 rounded-md font-bold h-fit
 }
 </style>
