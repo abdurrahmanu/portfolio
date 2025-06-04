@@ -9,6 +9,7 @@ export const gameStore = defineStore('gameStore', () => {
   const winCombo = ref([])
   const historyGames = ref([])
   const numberOfTurns = ref(0)
+  const resetGrid = ref(false)
   const gameEnd = ref(false)
   const turn = ref('x')
   const plays = ref({
@@ -16,7 +17,7 @@ export const gameStore = defineStore('gameStore', () => {
     'o': []
   })
 
-  const createGameGrid = (startCell, totalCols, totalRows, grid) => {
+  const createGameGrid = (startCell, totalCols, totalRows, reuse = false) => {
     // check if all cells have not been used
     let usedCells = historyGames.value.map(game => game.grid).flat(Infinity)
     if (gameEnd.value) {
@@ -31,9 +32,9 @@ export const gameStore = defineStore('gameStore', () => {
     for (let i = row; i < row + 3; i++) {
       gameGrid.value.push([])
       for (let j = col; j < col + 3; j++) {
-        let nonEmpty = usedCells.filter(cell => cell.row === i && cell.col === j)
+        let filledCell = usedCells.some(cell => cell.row === i && cell.col === j)
         let cellExists = j < totalCols && i < totalRows
-        if (nonEmpty.length || !cellExists) {
+        if (filledCell || (!cellExists && !reuse)) {
           gameGrid.value = []
           return
         }
@@ -45,35 +46,41 @@ export const gameStore = defineStore('gameStore', () => {
       }
     }
 
-    // row win combo
-    winCombo.value.push(...gameGrid.value)
-
-    // column win combo
-    for (let i = 0; i < 3; i++) {
-      winCombo.value.push([])
-      for (let j = 0; j < 3; j++) {
-        winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][i])
-      }
-    }
-
-    // nw to se diagonal win combo
-    for (let i = 0; i < 1; i++) {
-      winCombo.value.push([])
-      for (let j = 0; j < 3; j++) {
-        winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][j])
-      }      
-    }
-
-    // sw to ne diagonal win combo 2,0 - 1,1, - 0,2
-    for (let i = 0; i < 1; i++) {
-      winCombo.value.push([])
-      for (let j = 2; j >= 0; j--) {
-        winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][2 - j])
-      }  
-    }
+    setWinCombination()
   }
 
-  const inSubGrid = (row, col) => {
+  const setWinCombination = () => {
+        // row win combo
+        winCombo.value.push(...gameGrid.value)
+
+        // column win combo
+        for (let i = 0; i < 3; i++) {
+          winCombo.value.push([])
+          for (let j = 0; j < 3; j++) {
+            winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][i])
+          }
+        }
+    
+        // nw to se diagonal win combo
+        for (let i = 0; i < 1; i++) {
+          winCombo.value.push([])
+          for (let j = 0; j < 3; j++) {
+            winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][j])
+          }      
+        }
+    
+        // sw to ne diagonal win combo 2,0 - 1,1, - 0,2
+        for (let i = 0; i < 1; i++) {
+          winCombo.value.push([])
+          for (let j = 2; j >= 0; j--) {
+            winCombo.value[winCombo.value.length - 1].push(winCombo.value[j][2 - j])
+          }  
+        }
+  }
+
+  const inSubGrid = (referenceCell) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
     if (playGame.value && gameGrid.value.length) {
       let flattenedGrid = gameGrid.value.flat()
       let bool = flattenedGrid.find(el => el.row === row && el.col === col)
@@ -81,7 +88,9 @@ export const gameStore = defineStore('gameStore', () => {
     }
   }
 
-  const subGridIndex = (row, col) => {
+  const subGridIndex = (referenceCell) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
     if (playGame.value && gameGrid.value.length) {
       let flattenedGrid = gameGrid.value.flat(2).map(val => [val.row, val.col])
 
@@ -95,7 +104,10 @@ export const gameStore = defineStore('gameStore', () => {
     return ''
   }
 
-  const historyGridIndex = (row, col) => {
+  const historyGridIndex = (referenceCell) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
+
     if (historyGames.value.length) {
       let grid = historyGames.value.map(game => game.grid)
       for (let i = 0; i < grid.length; i++) {
@@ -115,7 +127,9 @@ export const gameStore = defineStore('gameStore', () => {
   }
 
 
-  const cellValue = (row, col) => {
+  const cellValue = (referenceCell) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
     const val = ref()
     gameGrid.value.map((r, i) => {
       r.forEach((cell, j) => {
@@ -127,7 +141,9 @@ export const gameStore = defineStore('gameStore', () => {
     return val.value
   }
 
-  const play = (row, col, value) => {
+  const play = (referenceCell, value) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
     if (gameEnd.value || value) return
     if (!startGame.value) startGame.value = true
     
@@ -180,27 +196,86 @@ export const gameStore = defineStore('gameStore', () => {
   }
 
   const clearPreviousGame = () => {
+    gameGrid.value = []
     winCombo.value = []
     winningCells.value = []
     startGame.value = false
-    gameGrid.value = []
     numberOfTurns.value = []
     // winner starts next game
     turn.value = turn.value === 'x' ? turn.value = 'o' : turn.value = 'x'
     plays.value = {'x': [], 'o': []}
   }
 
-  const restartGrid = (row, col) => {
-    // empty grid to reuse --- remove from history and use as gameGrid
-    // make sure there is no empty grid or ongoing game before carrying out
+  const deleteGrid = (referenceCell) => { 
+    let row = referenceCell.row
+    let col = referenceCell.col
+    const historyIndex = ref(null)
+    let grids = historyGames.value.map(game => game.grid.flat(2))
+    let isGameGrid = gameGrid.value.flat(2).some(cell => cell.row === row && cell.col === col)
+
+    for (let i = 0; i < grids.length; i++) {
+      if (historyIndex.value !== null) break
+      const grid = grids[i]; 
+      grid.forEach((cell, j) => {
+        if (cell.row === row && cell.col === col) {
+          historyIndex.value = i
+        }
+      })
+    }
+
+    if (isGameGrid) {
+      historyGames.value = historyGames.value.filter((game, index) => index !== historyIndex.value)
+      gameGrid.value = []
+    } 
+    else {
+      historyGames.value = historyGames.value.filter((game, index) => index !== historyIndex.value)  
+    }
   }
 
-  const deleteGrid = (row, col) => {
-    // delete grid --- remove from history
-    // can carry out anytime
+  const setGrid = (referenceCell, totalCols, totalRows) => {
+    let row = referenceCell.row
+    let col = referenceCell.col
+    let historyGrids = historyGames.value.map(game => game.grid.flat(2))
+    let isGameGrid = gameGrid.value.flat(2).some(cell => cell.row === row && cell.col === col)
+    let usedCells = historyGames.value.length ? historyGames.value.map(game => game.grid).flat(Infinity) : []
+    let filledCell = usedCells.some(cell => cell.row === row && cell.col === col)
+
+    if ((!historyGrids.length && !isGameGrid) || !filledCell) {
+      createGameGrid(referenceCell, totalCols, totalRows)
+    } 
+    else {
+      if (!resetGrid.value) return
+      const historyIndex = ref(null)
+      for (let i = 0; i < historyGrids.length; i++) {
+        if (historyIndex.value !== null) break
+        const grid = historyGrids[i]; 
+        grid.forEach((cell, j) => {
+          if (cell.row === row && cell.col === col) {
+            historyIndex.value = i
+          }
+        })
+      }
+  
+      if (isGameGrid) {
+        let grid_ = gameGrid.value[0][0]  
+        historyGames.value = historyGames.value.filter((game, gameIndex) => gameIndex !== historyIndex.value)
+        createGameGrid({row: grid_.row, col: grid_.col, value: ''}, totalCols, totalRows, true)
+      } 
+      
+      else {
+        if (gameEnd.value) {  
+          let cell = historyGames.value.flat(Infinity).map(history => history.grid.flat(2))[historyIndex.value][0]
+          historyGames.value = historyGames.value.filter((game, index) => index !== historyIndex.value)
+          createGameGrid({row: cell.row, col: cell.col, value: ''}, totalCols, totalRows, true)
+        }
+      }
+    }
+
+    resetGrid.value = false
   }
 
   return {
+    resetGrid,
     startGame,
     playGame,
     turn,
@@ -215,7 +290,7 @@ export const gameStore = defineStore('gameStore', () => {
     historyGridIndex,
     subGridIndex,
     play,
-    restartGrid,
+    setGrid,
     deleteGrid,
   }
 })

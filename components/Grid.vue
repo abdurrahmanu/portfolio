@@ -13,7 +13,7 @@
                  '',
                 !playGame && !(showSkills || showProjects) ? 'ring-neutral-300' : 'ring-neutral-500',
                 playGame &&
-                inSubGrid(grid[i].row, grid[i].col) ?
+                inSubGrid(grid[i]) ?
                 'subgrid' :
                 historyGames.map(game => game.grid).flat(Infinity).filter(cell => cell.row === grid[i].row && 
                 cell.col === grid[i].col).length && playGame ?
@@ -29,29 +29,36 @@
                 cell.col === grid[i].col).length) ?
                 'win-cell' :
                 '',
-                historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame ? 
-                'border-t-[3px] border-t-blue-600 border-l-[3px] border-l-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 1 && playGame ? 
-                'border-t-[3px] border-t-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 2 && playGame ? 
-                'border-t-[3px] border-t-blue-600 border-r-[3px] border-r-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 3 && playGame ? 
-                'border-l-[3px] border-l-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 5 && playGame ? 
-                'border-r-[3px] border-r-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 6 && playGame ? 
-                'border-b-[3px] border-b-blue-600 border-l-[3px] border-l-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 7 && playGame ? 
-                'border-b-[3px] border-b-blue-600' :
-                historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame ? 
-                'border-b-[3px] border-b-blue-600 border-r-[3px] border-r-blue-600' :
-                '',
+                // historyGridIndex(grid[i]) === 0 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600 border-l-[1px] border-l-sky-600' :
+                // historyGridIndex(grid[i]) === 1 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600' :
+                // historyGridIndex(grid[i]) === 2 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600 border-r-[1px] border-r-sky-600' :
+                // historyGridIndex(grid[i]) === 3 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-l-[1px] border-l-sky-600' :
+                // historyGridIndex(grid[i]) === 5 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-r-[1px] border-r-sky-600' :
+                // historyGridIndex(grid[i]) === 4 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-transparent' :
+                // historyGridIndex(grid[i]) === 6 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600 border-l-[1px] border-l-sky-600' :
+                // historyGridIndex(grid[i]) === 7 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600' :
+                // historyGridIndex(grid[i]) === 8 && playGame ? 
+                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600 border-r-[1px] border-r-sky-600' :
+                // '',
              ]"
-            @click="(playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? createGameGrid(grid[i], grid_[0].length, grid_.length, grid_) : gameGrid.length && !gameEnd && inSubGrid(grid[i].row, grid[i].col) ? play(grid[i].row, grid[i].col, gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value) : ''" 
+            @click.self="
+                (playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? 
+                setGrid(grid[i], grid_[0].length, grid_.length, grid_) :
+                gameGrid.length && !gameEnd && inSubGrid(grid[i]) ?
+                play(grid[i], gameGrid[cellValue(grid[i])[0]][cellValue(grid[i])[1]].value) :
+                ''" 
             >
             {{ playGame &&
-                gameGrid.length && inSubGrid(grid[i].row, grid[i].col) && !gameEnd ?
-                gameGrid[cellValue(grid[i].row, grid[i].col)[0]][cellValue(grid[i].row, grid[i].col)[1]].value : 
+                gameGrid.length && inSubGrid(grid[i]) && !gameEnd ?
+                gameGrid[cellValue(grid[i])[0]][cellValue(grid[i])[1]].value : 
                 '' 
             }} 
 
@@ -71,13 +78,12 @@
              
              <span 
              class="absolute inline-block"
-             :class="[inSubGrid(grid[i].row, grid[i].col) ? 'w-10 h-32 bg-red-300' : '']"
-             v-if="showSkills || showProjects || inSubGrid(grid[i].row, grid[i].col)" 
-             :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i].row, grid[i].col)] : ''"></span>
+             :class="[inSubGrid(grid[i]) ? 'w-10 h-32 bg-red-300' : '']"
+             v-if="showSkills || showProjects || inSubGrid(grid[i])" 
+             :style="!playGame ? spanStars[i] : playGame ? spanStars[subGridIndex(grid[i])] : ''"></span>
 
-             <Delete @click="deleteGrid(grid[i].row, grid[i].col)" class="absolute w-5 h-5 top-[1px] left-[1px] hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i].row, grid[i].col) === 0 && playGame" />
-
-             <Restart @click="restartGrid(grid[i].row, grid[i].col)" class="absolute w-7 h-7 bottom-0 right-0 hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i].row, grid[i].col) === 8 && playGame " />
+             <Delete @click="deleteGrid(grid[i])" class="absolute w-5 h-5 top-[1px] left-[1px] hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i]) === 0 && playGame" />
+             <Restart @click="resetGrid = true, setGrid(grid[i])" class="absolute w-7 h-7 bottom-0 right-0 hover:scale-[120%] cursor-pointer" v-if="historyGridIndex(grid[i]) === 8 && playGame " />
         </div>  
     </div>
 </template>
@@ -87,8 +93,8 @@ const mainstore = mainStore()
 const {showSkills, showProjects} = storeToRefs(mainstore)
 
 const gamestore = gameStore()
-const {playGame, gameGrid, winningCells, historyGames, gameEnd} = storeToRefs(gamestore)
-const {createGameGrid, deleteGrid, restartGrid, inSubGrid, play, cellValue, subGridIndex, historyGridIndex} = gamestore
+const {playGame, resetGrid, gameGrid, winningCells, historyGames, gameEnd} = storeToRefs(gamestore)
+const {deleteGrid, setGrid, inSubGrid, play, cellValue, subGridIndex, historyGridIndex} = gamestore
 
 let color = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFF5', '#F5FF33', '#FF8C33', '#33FF8C', '#8C33FF', '#FF338C', '#338CFF', '#8CFF33', '#FF5733', '#33FF57', '#3357FF', '#FF33A1']
 const boxesContainer = ref(null)
@@ -250,11 +256,11 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .subgrid {
-    @apply bg-neutral-900 hover:bg-neutral-900 ring-white
+    @apply bg-neutral-800 hover:bg-neutral-900 border-[1px] border-neutral-500 ring-transparent
 }
 
 .history-subgrid {
-    @apply bg-black hover:bg-black
+    @apply bg-black hover:bg-black ring-transparent border-[1px] border-neutral-900
 }
 
 .not-subgrid {
