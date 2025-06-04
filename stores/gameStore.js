@@ -12,6 +12,11 @@ export const gameStore = defineStore('gameStore', () => {
   const resetGrid = ref(false)
   const gameEnd = ref(false)
   const turn = ref('x')
+  const gameScores = ref({
+    'x': 0,
+    'o': 0,
+    'tie': 0,
+  })
   const plays = ref({
     'x': [],
     'o': []
@@ -122,6 +127,11 @@ export const gameStore = defineStore('gameStore', () => {
   }
 
   const clearAll = () => {
+    gameScores.value = {
+      'x': 0,
+      'o': 0,
+      'tie': 0,
+    }
     historyGames.value = []
     clearPreviousGame()
   }
@@ -176,6 +186,8 @@ export const gameStore = defineStore('gameStore', () => {
         startGame.value = false
         winningCells.value = winCombo.value[i]
         saveProgress(turn.value + ' WINS', winningCells.value)
+        if (turn.value === 'x') gameScores.value['x']++
+        else gameScores.value['o']++
       }
     }
 
@@ -183,6 +195,7 @@ export const gameStore = defineStore('gameStore', () => {
       gameEnd.value = true
       startGame.value = false
       saveProgress('Tie game', winningCells.value)
+      gameScores.value['tie']++
     }
   }
 
@@ -291,6 +304,7 @@ export const gameStore = defineStore('gameStore', () => {
     subGridIndex,
     play,
     setGrid,
+    gameScores,
     deleteGrid,
   }
 })

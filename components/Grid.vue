@@ -8,8 +8,9 @@
         :data-row="grid[i].row" 
         :data-col="grid[i].col" 
         :class="[
+                playGame || (!playGame && !(showSkills || showProjects)) ? 'border-[1px] border-neutral-300 cursor-pointer' : '',
                 (showSkills || showProjects) && !playGame ? 
-                'ring-transparent' :
+                'ring-transparent border-transparent ring-transparent' :
                  '',
                 !playGame && !(showSkills || showProjects) ? 'ring-neutral-300' : 'ring-neutral-500',
                 playGame &&
@@ -29,25 +30,25 @@
                 cell.col === grid[i].col).length) ?
                 'win-cell' :
                 '',
-                // historyGridIndex(grid[i]) === 0 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600 border-l-[1px] border-l-sky-600' :
-                // historyGridIndex(grid[i]) === 1 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600' :
-                // historyGridIndex(grid[i]) === 2 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-t-[1px] border-t-sky-600 border-r-[1px] border-r-sky-600' :
-                // historyGridIndex(grid[i]) === 3 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-l-[1px] border-l-sky-600' :
-                // historyGridIndex(grid[i]) === 5 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-r-[1px] border-r-sky-600' :
-                // historyGridIndex(grid[i]) === 4 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-transparent' :
-                // historyGridIndex(grid[i]) === 6 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600 border-l-[1px] border-l-sky-600' :
-                // historyGridIndex(grid[i]) === 7 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600' :
-                // historyGridIndex(grid[i]) === 8 && playGame ? 
-                // 'ring-neutral-700 ring-[1px] border-b-[1px] border-b-sky-600 border-r-[1px] border-r-sky-600' :
-                // '',
+                historyGridIndex(grid[i]) === 0 && playGame ? 
+                'ring-[1px] border-t-[1px] border-t-sky-600 border-l-[1px] border-l-sky-600' :
+                historyGridIndex(grid[i]) === 1 && playGame ? 
+                'ring-[1px] border-t-[1px] border-t-sky-600' :
+                historyGridIndex(grid[i]) === 2 && playGame ? 
+                'ring-[1px] border-t-[1px] border-t-sky-600 border-r-[1px] border-r-sky-600' :
+                historyGridIndex(grid[i]) === 3 && playGame ? 
+                'ring-[1px] border-l-[1px] border-l-sky-600' :
+                historyGridIndex(grid[i]) === 5 && playGame ? 
+                'ring-[1px] border-r-[1px] border-r-sky-600' :
+                historyGridIndex(grid[i]) === 4 && playGame ? 
+                'ring-[1px] border-transparent' :
+                historyGridIndex(grid[i]) === 6 && playGame ? 
+                'ring-[1px] border-b-[1px] border-b-sky-600 border-l-[1px] border-l-sky-600' :
+                historyGridIndex(grid[i]) === 7 && playGame ? 
+                'ring-[1px] border-b-[1px] border-b-sky-600' :
+                historyGridIndex(grid[i]) === 8 && playGame ? 
+                'ring-[1px] border-b-[1px] border-b-sky-600 border-r-[1px] border-r-sky-600' :
+                '',
              ]"
             @click.self="
                 (playGame && !gameGrid.length && grid[i].row !== 0) || gameEnd ? 
@@ -224,7 +225,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
     if (!newShowProjects && !newShowSkills) {
         style.value = {
             ...style.value,
-            'position': 'fixed',
+            'position': 'relative',
         }
         spanLines.value = []
     }
@@ -252,15 +253,15 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .cell {
-    @apply w-fit h-fit flex grid font-bold items-center justify-center ring-[1px] cursor-pointer
+    @apply w-fit h-fit font-bold items-center justify-center font-[100]
 }
 
 .subgrid {
-    @apply bg-neutral-800 hover:bg-neutral-900 border-[1px] border-neutral-500 ring-transparent
+    @apply bg-neutral-800 hover:bg-neutral-700 ring-neutral-900 ring-[1px] border-transparent
 }
 
 .history-subgrid {
-    @apply bg-black hover:bg-black ring-transparent border-[1px] border-neutral-900
+    @apply bg-black hover:bg-black ring-[1px] ring-neutral-700 border-transparent cursor-default
 }
 
 .not-subgrid {
@@ -268,7 +269,7 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
 }
 
 .first-row {
-    @apply bg-neutral-900 ring-transparent hover:bg-neutral-900
+    @apply bg-neutral-900 ring-transparent hover:bg-neutral-900 border-transparent
 }
 
 .win-cell {

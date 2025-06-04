@@ -81,6 +81,9 @@ watch([showSkills, showProjects], ([newShowSkills, newShowProjects]) => {
                 }
             }
         }, 0);
+    } else {
+        if (!newShowSkills) skills_.value = false
+        if (!newShowProjects) projects_.value = false
     }
 })
 
