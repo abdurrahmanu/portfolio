@@ -21,13 +21,6 @@ export const mainStore = defineStore('main', () => {
             img: 'xando'
         },
         {
-            title: 'Xpressway Logistics',
-            link: 'https://xpressway-logistics.web.app',
-            code: 'github.com/abdurrahmanu/dorayii.git',
-            info: 'This is a mock transport logistics company website.',
-            img: 'xpressway'
-        },
-        {
             title: 'Airbnb Homepage',
             link: 'https://air-bnb-homepage.netlify.app',
             code: 'github.com/abdurrahmanu/airbnb',
